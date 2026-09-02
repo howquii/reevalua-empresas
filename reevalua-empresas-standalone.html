@@ -407,7 +407,8 @@ h3 { font-size: var(--fs-h3); font-weight: 700; }
 @media (min-width: 880px) { .gate { grid-template-columns: 1.05fr 1fr; } }
 .gate__l { background: var(--navy); color: #fff; padding: clamp(1.75rem, 4vw, 3rem); display: flex; flex-direction: column; justify-content: center; gap: .75rem; }
 .gate__t { font-size: .75rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--mint); }
-.gate__fig { font-size: clamp(1.7rem, 1.3rem + 1.8vw, 2.6rem); font-weight: 800; font-variant-numeric: tabular-nums; }
+.gate__fig { font-size: clamp(1.7rem, 1.3rem + 1.8vw, 2.6rem); font-weight: 800; font-variant-numeric: tabular-nums; display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 .4em; }
+.gate__fig b { white-space: nowrap; }
 .gate__fig i { font-style: normal; color: rgba(255,255,255,.55); font-weight: 500; font-size: .6em; margin: 0 .3em; }
 .gate__fig b { color: var(--mint); }
 .gate__l p { color: rgba(255,255,255,.72); }
@@ -475,7 +476,7 @@ h3 { font-size: var(--fs-h3); font-weight: 700; }
   <div class="container hero__inner">
     <div class="hero__grid">
       <div>
-        <span class="hero__kicker">Calculadora gratuita para organizaciones</span>
+        <span class="hero__kicker">Diagnóstico gratuito para empresas</span>
         <h1>Descubre cuánto le cuesta a tu organización el estrés financiero de <span class="rot"><span class="rot__w" id="rot">tus colaboradores</span></span></h1>
         <p class="hero__sub">Tres datos que ya conoces y una estimación anual del impacto en productividad, rotación y carga de RR. HH., con la metodología a la vista.</p>
         <div class="hero__cta">
@@ -498,7 +499,7 @@ h3 { font-size: var(--fs-h3); font-weight: 700; }
         </div>
         <span class="chip chip--1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 20V10M12 20V4M20 20v-7"/></svg>Productividad</span>
         <span class="chip chip--2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4v5h5M20 20v-5h-5"/><path d="M4.6 15a8 8 0 0 0 14.5 2.5M19.4 9a8 8 0 0 0-14.5-2.5"/></svg>Rotación</span>
-        <span class="chip chip--3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg>RR. HH.</span>
+        <span class="chip chip--3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-4.6-7-10a7 7 0 0 1 14 0c0 5.4-7 10-7 10z"/><path d="M9 11h6M12 8v6"/></svg>Clima laboral</span>
       </div>
     </div>
   </div>
@@ -1042,7 +1043,7 @@ h3 { font-size: var(--fs-h3); font-weight: 700; }
       <span class="aside__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 19V10M10 19V5M16 19v-6M4 19h16"/></svg></span>
       <span class="aside__t">Referencia del estudio</span>
       <h3>59% reporta estrés por sus finanzas</h3>
-      <p>PwC encuestó a casi 3,500 trabajadores. Es un benchmark internacional (EE. UU.), no una prevalencia medida en Perú.</p>
+      <p>PwC encuestó a casi 3,500 trabajadores sobre cómo sus finanzas personales afectan su concentración y su desempeño en el trabajo.</p>
       <div class="aside__note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg>Fuente: PwC Employee Financial Wellness Survey 2023.</div>
     </aside>
   </section>
@@ -1077,7 +1078,7 @@ h3 { font-size: var(--fs-h3); font-weight: 700; }
     <div class="gate">
       <div class="gate__l">
         <span class="gate__t">Tu estimación está lista</span>
-        <h2 style="font-size:1.6rem">El valor recuperable con Reevalúa estaría entre</h2>
+        <h2 style="font-size:1.6rem">El costo anual estimado estaría entre</h2>
         <div class="gate__fig"><b id="g-low">S/ 0</b><i>y</i><b id="g-high">S/ 0</b></div>
         <p>Ingresa tu correo corporativo para ver el costo total estimado y el desglose completo.</p>
         <div class="gate__chips"><span>Productividad</span><span>Rotación</span><span>Supuestos utilizados</span></div>
@@ -1106,9 +1107,9 @@ h3 { font-size: var(--fs-h3); font-weight: 700; }
           <p class="res__sub" id="r-sub">por el impacto estimado del estrés financiero de su gente.</p>
         </div>
         <div class="res__range">
-          <small>Valor recuperable con Reevalúa</small>
+          <small>Rango estimado</small>
           <b id="r-range">S/ 0 – S/ 0</b>
-          <p>Escenario conservador (15%) a optimista (40%) sobre el total estimado. Referencia central: 25%.</p>
+          <p>Del escenario inferior (sin atribuir rotación al estrés financiero) al superior (atribuyendo 43.8%). Es un análisis de sensibilidad, no un intervalo estadístico.</p>
         </div>
       </div>
       <div class="res__cards">
@@ -1120,10 +1121,10 @@ h3 { font-size: var(--fs-h3); font-weight: 700; }
         <span class="q__n">CÓMO CALCULAMOS TU RESULTADO</span>
         <h3>Datos, referencias y supuestos separados</h3>
         <div class="mblock" style="margin-top:1.5rem"><small>01 · DATOS DE TU ORGANIZACIÓN</small><h4>Base personalizada</h4><ul id="m-data"></ul></div>
-        <div class="mblock"><small>02 · REFERENCIAS PWC (EE. UU.)</small><h4>Impacto en productividad</h4><ul><li>59% de trabajadores con estrés financiero, según PwC Employee Financial Wellness Survey 2023.</li><li>44% de los trabajadores financieramente estresados se distrae por sus finanzas durante la jornada.</li><li>56% de quienes se distraen dedica 3 horas o más por semana a temas financieros en horario laboral.</li></ul></div>
+        <div class="mblock"><small>02 · REFERENCIAS PWC</small><h4>Impacto en productividad</h4><ul><li>59% de trabajadores con estrés financiero, según PwC Employee Financial Wellness Survey 2023.</li><li>44% de los trabajadores financieramente estresados se distrae por sus finanzas durante la jornada.</li><li>56% de quienes se distraen dedica 3 horas o más por semana a temas financieros en horario laboral.</li></ul></div>
         <div class="mblock"><small>03 · SUPUESTOS DEL MODELO</small><h4>Conversión a costo anual</h4><ul><li>Factor laboral 1.37: aproxima gratificaciones, CTS y EsSalud sobre la remuneración bruta.</li><li>160 horas mensuales y 52 semanas al año para convertir el costo laboral a horas.</li><li>Costo de reemplazo: 20% de la remuneración anual por cada salida.</li><li>Atribución de rotación al estrés financiero: 43.8% (60% de estresados × 73% dispuesto a cambiar de empleador, PwC).</li></ul></div>
-        <div class="mblock"><small>04 · RANGO DE RECUPERACIÓN</small><h4>Tres escenarios visibles</h4><ul><li>Conservador: 15% del total estimado es recuperable con acompañamiento.</li><li>Base: 25%, el escenario que usamos como referencia central.</li><li>Optimista: 40%, techo del rango si la adopción del programa es alta.</li></ul></div>
-        <p class="disc">Esta es una estimación con metodología visible para abrir la conversación de impacto, no una medición contable. Los supuestos vienen de estudios públicos citados arriba, no de datos observados en tu organización. El porcentaje recuperable es un escenario de referencia, no una garantía de ahorro.</p>
+        <div class="mblock"><small>04 · CONSTRUCCIÓN DEL RANGO</small><h4>Dos escenarios visibles</h4><ul><li>Inferior: solo el costo por productividad y carga de RR. HH., sin atribuir rotación al estrés financiero.</li><li>Principal y superior: suma la parte del costo de reemplazo atribuible al estrés financiero (43.8%, PwC).</li></ul></div>
+        <p class="disc">Esta es una estimación con metodología visible para abrir la conversación de impacto, no una medición contable. Los supuestos vienen de estudios públicos citados arriba, no de datos observados en tu organización. No representa una pérdida contable observada ni una garantía de ahorro.</p>
         <div class="actions">
           <a class="btn btn--primary btn--lg" href="https://meetings.hubspot.com/raquel120" target="_blank" rel="noopener">Agendar una reunión para revisar mi resultado <span class="arrow">→</span></a>
           <button class="btn btn--ghost btn--lg" id="restart" type="button">Recalcular</button>
@@ -1217,7 +1218,8 @@ h3 { font-size: var(--fs-h3); font-weight: 700; }
 (function () {
   var NAMES = ["Trabajadores","Remuneración","Rotación","Estrés financiero","Carga RR. HH.","Informe","Resultado"];
   // Supuestos (hoja "3. Calculadora Reevalúa B2B", calibrados en conservador)
-  var STRESS = 0.59, DISTRACT = 0.44, HOURS3 = 0.56, FACTOR = 1.37, REPLACE = 0.20, ROT_ATTR = 0.6 * 0.73, RECUP = { lo: 0.15, base: 0.25, hi: 0.40 };
+  var STRESS = 0.59, DISTRACT = 0.44, HOURS3 = 0.56, FACTOR = 1.37, REPLACE = 0.20, ROT_ATTR = 0.6 * 0.73;
+  // Nota: el "% recuperable" (15/25/40) del Excel no se muestra en la UI hasta definirlo con Patricia y Raquel.
   var step = 1, TOTAL = 7;
   var $ = function (s) { return document.querySelector(s); }, $$ = function (s) { return Array.prototype.slice.call(document.querySelectorAll(s)); };
   function money(n) { return "S/ " + Math.round(n).toLocaleString("es-PE"); }
@@ -1264,13 +1266,13 @@ h3 { font-size: var(--fs-h3); font-weight: 700; }
     var leavers = Math.round(x.n * x.rot);
     var rotc = leavers * (x.salary * 12 * REPLACE) * ROT_ATTR;
     var hr = x.hrH * 12 * (x.hrS * FACTOR / 160);
-    return { prod: prod, rot: rotc, hr: hr, total: prod + rotc + hr, hrOn: x.hrH > 0 && x.hrS > 0 };
+    return { prod: prod, rot: rotc, hr: hr, total: prod + rotc + hr, low: prod + hr, hrOn: x.hrH > 0 && x.hrS > 0 };
   }
-  function gate() { var r = compute(inputs()); $("#g-low").textContent = money(r.total * RECUP.lo); $("#g-high").textContent = money(r.total * RECUP.hi); $("#g-mail-echo").textContent = $("#email1").value.trim(); }
+  function gate() { var r = compute(inputs()); $("#g-low").textContent = money(r.low); $("#g-high").textContent = money(r.total); $("#g-mail-echo").textContent = $("#email1").value.trim(); }
   function result() {
     var x = inputs(), r = compute(x);
     $("#r-total").innerHTML = money(r.total) + " <small>al año</small>";
-    $("#r-range").textContent = money(r.total * RECUP.lo) + " – " + money(r.total * RECUP.hi);
+    $("#r-range").textContent = money(r.low) + " – " + money(r.total);
     $("#r-prod").textContent = money(r.prod); $("#r-rot").textContent = money(r.rot);
     if (r.hrOn) { $("#r-hr").textContent = money(r.hr); $("#r-hr-d").textContent = "Tiempo de tu equipo dedicado a temas financieros de terceros."; }
     else { $("#r-hr").textContent = "No incluido"; $("#r-hr-d").textContent = "Puedes añadirlo y afinar la estimación."; }
