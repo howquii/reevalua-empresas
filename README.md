@@ -1,5 +1,10 @@
 # Reevalúa Empresas · landing + calculadora
 
+**Sitio público (GitHub Pages):** https://howquii.github.io/reevalua-empresas/  
+Calculadora: https://howquii.github.io/reevalua-empresas/calculadora.html
+
+Cada `git push` a `main` republica el sitio en 1 o 2 minutos.
+
 Sitio estático, sin build. Dos páginas y una carpeta de assets:
 
 - `index.html`  landing B2B (hero con video, secciones, comunidad HR, FAQ, footer)
