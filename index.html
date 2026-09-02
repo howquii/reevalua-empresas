@@ -1,0 +1,817 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reevalúa Empresas</title>
+<meta name="description" content="Descubre cuánto le cuesta a tu organización el estrés financiero de su gente y cómo Reevalúa acompaña a cada persona, sin costo para la empresa.">
+<link rel="icon" href="assets/real/logo-reevalua.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared.css">
+<style>
+/* ---------------- HERO ---------------- */
+.hero { position: relative; min-height: 100vh; min-height: 100svh; display: flex; align-items: center; color: #fff; overflow: hidden; background: var(--navy); }
+.hero__media { position: absolute; inset: -12% 0; z-index: 0; will-change: transform; }
+.hero__media video, .hero__media img { width: 100%; height: 100%; object-fit: cover; }
+.hero__shade { position: absolute; inset: 0; z-index: 1; background: linear-gradient(90deg, rgba(23,37,84,.96) 0%, rgba(23,37,84,.86) 45%, rgba(23,37,84,.62) 100%); }
+.hero__shade::after { content: ""; position: absolute; inset: auto 0 0 0; height: 45%; background: linear-gradient(180deg, transparent, rgba(23,37,84,.9)); }
+.hero__inner { position: relative; z-index: 2; width: 100%; padding-block: 7rem 5rem; }
+.hero__grid { display: grid; grid-template-columns: 1fr; gap: 3rem; align-items: center; }
+@media (min-width: 960px) { .hero__grid { grid-template-columns: 1.1fr .9fr; gap: 4rem; } }
+.hero__kicker { display: inline-flex; align-items: center; gap: .5rem; font-size: .85rem; font-weight: 600; color: var(--mint); margin-bottom: 1.25rem; }
+.hero__kicker::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--mint); box-shadow: 0 0 0 6px rgba(134,239,172,.18); }
+.hero h1 { font-size: var(--fs-h1); font-weight: 800; line-height: 1.06; }
+.rot { position: relative; display: inline-block; height: 1.08em; overflow: hidden; vertical-align: bottom; color: var(--ice); }
+.rot__w { display: inline-block; transition: transform .45s var(--ease), opacity .45s var(--ease); }
+.rot__w.out { transform: translateY(-100%); opacity: 0; }
+.rot__w.in { transform: translateY(100%); opacity: 0; transition: none; }
+.hero__sub { margin-top: 1.5rem; font-size: 1.15rem; color: rgba(255,255,255,.78); max-width: 52ch; }
+.hero__cta { margin-top: 2.25rem; display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 1.5rem; }
+.hero__trust { display: flex; align-items: center; gap: .5rem; font-size: .88rem; color: rgba(255,255,255,.7); }
+@media (max-height: 780px) and (min-width: 960px) { .hero h1 { font-size: clamp(2rem, 1.2rem + 3vw, 3.4rem); } .hero__inner { padding-block: 6rem 4rem; } .orbit { width: min(100%, 380px); } }
+.hero__scroll { position: absolute; left: 50%; bottom: 1.5rem; transform: translateX(-50%); z-index: 2; display: flex; flex-direction: column; align-items: center; gap: .4rem; font-size: .75rem; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.55); }
+.hero__scroll span { width: 1px; height: 36px; background: linear-gradient(180deg, rgba(255,255,255,.6), transparent); animation: drop 1.8s infinite; }
+@keyframes drop { 0% { transform: scaleY(0); transform-origin: top; } 50% { transform: scaleY(1); transform-origin: top; } 51% { transform-origin: bottom; } 100% { transform: scaleY(0); transform-origin: bottom; } }
+
+/* Gráfico de órbita */
+.orbit { position: relative; aspect-ratio: 1; width: min(100%, 440px); margin-inline: auto; display: grid; place-items: center; }
+.orbit__ring { position: absolute; border-radius: 50%; border: 1.5px dashed rgba(255,255,255,.22); animation: spin 60s linear infinite; }
+.orbit__ring--1 { inset: 0; } .orbit__ring--2 { inset: 14%; animation-direction: reverse; animation-duration: 45s; } .orbit__ring--3 { inset: 28%; border-style: solid; border-color: rgba(191,219,254,.18); }
+.orbit__glow { position: absolute; inset: 22%; border-radius: 50%; background: radial-gradient(circle, rgba(47,94,255,.55), transparent 70%); filter: blur(24px); }
+@keyframes spin { to { transform: rotate(360deg); } }
+.orbit__core { position: absolute; z-index: 2; left: 21%; top: 21%; width: 58%; height: 58%; border-radius: 50%; background: #fff; color: var(--navy); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 8%; box-shadow: 0 30px 60px rgba(0,0,0,.35); overflow: hidden; }
+.orbit__core small { font-size: clamp(.68rem, .6rem + .3vw, .8rem); color: var(--muted); font-weight: 500; }
+.orbit__core strong { font-size: clamp(1.3rem, 1rem + 1.2vw, 1.9rem); font-weight: 800; line-height: 1.05; margin-top: .15rem; }
+.orbit__core em { font-style: normal; font-size: clamp(.68rem, .6rem + .3vw, .78rem); color: var(--blue); font-weight: 600; margin-top: .3rem; }
+.orbit__dot { position: absolute; top: 0; left: 50%; width: 10px; height: 10px; margin-left: -5px; margin-top: -5px; border-radius: 50%; background: var(--mint); box-shadow: 0 0 0 6px rgba(134,239,172,.2); }
+.chip { position: absolute; z-index: 3; display: inline-flex; align-items: center; gap: .5rem; background: #fff; color: var(--navy); font-weight: 700; font-size: .85rem; padding: .6rem .9rem; border-radius: var(--pill); box-shadow: 0 16px 34px rgba(0,0,0,.3); animation: float 6s var(--ease) infinite; }
+.chip svg { width: 18px; height: 18px; color: var(--blue); }
+.chip--1 { left: -8%; top: 12%; } .chip--2 { right: -10%; top: 44%; animation-delay: -2s; } .chip--3 { left: 4%; bottom: 4%; animation-delay: -4s; }
+@media (max-width: 959px) { .orbit { width: min(100%, 340px); } .chip { font-size: .78rem; padding: .5rem .75rem; } .chip--1 { left: 0; } .chip--2 { right: 0; } }
+@keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+
+/* ---------------- LOGOS ---------------- */
+.logos { background: #fff; border-bottom: 1px solid var(--line); padding-block: 3rem; }
+.logos p { text-align: center; color: var(--muted); font-weight: 500; margin-bottom: 1.75rem; }
+.marquee { overflow: hidden; mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent); }
+.marquee__track { display: flex; align-items: center; gap: 3.5rem; width: max-content; animation: marquee 42s linear infinite; }
+.marquee:hover .marquee__track { animation-play-state: paused; }
+@keyframes marquee { to { transform: translateX(-50%); } }
+.marquee__item { height: 40px; display: flex; align-items: center; filter: grayscale(1) opacity(.55); transition: filter .3s var(--ease); }
+.marquee__item:hover { filter: none; }
+.marquee__item img { height: 100%; width: auto; max-width: 150px; object-fit: contain; }
+.marquee__item--text { font-weight: 800; font-size: 1.15rem; color: var(--navy); letter-spacing: .02em; }
+
+/* ---------------- QUIÉNES SOMOS ---------------- */
+.about__grid { display: grid; grid-template-columns: 1fr; gap: 3rem; align-items: center; }
+@media (min-width: 960px) { .about__grid { grid-template-columns: 1fr 1.15fr; gap: 4rem; } }
+.collage { display: grid; grid-template-columns: repeat(6, 1fr); grid-auto-rows: 90px; gap: .85rem; }
+@media (min-width: 600px) { .collage { grid-auto-rows: 110px; } }
+.collage figure { position: relative; overflow: hidden; border-radius: var(--r-md); box-shadow: var(--shadow); animation: drift 12s var(--ease) infinite; }
+.collage figure:nth-child(odd) { animation-delay: -4s; } .collage figure:nth-child(3n) { animation-delay: -8s; }
+@keyframes drift { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+.collage img { width: 100%; height: 100%; object-fit: cover; transition: transform .8s var(--ease); }
+.collage figure:hover img { transform: scale(1.06); }
+.collage figure:nth-child(1) { grid-column: 1 / 5; grid-row: 1 / 3; }
+.collage figure:nth-child(2) { grid-column: 5 / 7; grid-row: 1 / 2; }
+.collage figure:nth-child(3) { grid-column: 5 / 7; grid-row: 2 / 4; }
+.collage figure:nth-child(4) { grid-column: 1 / 3; grid-row: 3 / 4; }
+.collage figure:nth-child(5) { grid-column: 3 / 5; grid-row: 3 / 4; }
+.collage .stat { position: absolute; left: .9rem; bottom: .9rem; background: rgba(255,255,255,.92); backdrop-filter: blur(6px); color: var(--navy); border-radius: var(--r-sm); padding: .5rem .75rem; font-size: .8rem; font-weight: 700; }
+.about p { color: var(--ink-2); margin-top: 1rem; }
+.stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 2rem; }
+.stat-card { background: var(--blue-soft); border-radius: var(--r-md); padding: 1.1rem 1rem; }
+.stat-card b { display: block; font-size: clamp(1.5rem, 1.2rem + 1vw, 2.1rem); font-weight: 800; color: var(--blue); font-variant-numeric: tabular-nums; line-height: 1; }
+.stat-card span { display: block; font-size: .82rem; color: var(--ink-2); margin-top: .4rem; }
+.stats__note { font-size: .78rem; color: var(--muted); margin-top: .75rem; }
+
+/* ---------------- VISIÓN ---------------- */
+.vision { background: #fff; }
+.vision__wrap { display: grid; grid-template-columns: 1fr; gap: 3rem; align-items: center; }
+@media (min-width: 960px) { .vision__wrap { grid-template-columns: 1.1fr .9fr; gap: 5rem; } }
+.vision p { color: var(--ink-2); font-size: 1.1rem; margin-top: 1.25rem; }
+.vision p strong { color: var(--ink); }
+.values { display: flex; flex-wrap: wrap; gap: .6rem; margin-top: 1.75rem; }
+.values span { background: var(--page); border: 1px solid var(--line); border-radius: var(--pill); padding: .5rem 1rem; font-size: .88rem; font-weight: 600; color: var(--navy); }
+.case { border-radius: var(--r-lg); overflow: hidden; box-shadow: var(--shadow-lg); border: 1px solid var(--line); background: #fff; }
+.case__half { padding: 1.5rem; }
+.case__half + .case__half { border-top: 1px solid var(--line); }
+.case__label { font-size: .75rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.case__half--after .case__label { color: var(--mint-dark); }
+.case__row { display: flex; justify-content: space-between; gap: 1rem; padding-block: .55rem; border-bottom: 1px dashed var(--line); font-size: .95rem; }
+.case__row:last-child { border-bottom: 0; }
+.case__row b { font-variant-numeric: tabular-nums; }
+.case__half--after b { color: var(--mint-dark); }
+.tag { display: inline-block; font-size: .78rem; font-weight: 600; padding: .25rem .6rem; border-radius: var(--pill); }
+.tag--warn { background: #FEE2E2; color: #991B1B; } .tag--ok { background: var(--mint-soft); color: var(--mint-dark); }
+
+/* ---------------- COMPARATIVA ---------------- */
+.compare { display: grid; grid-template-columns: 1fr; gap: 1.25rem; margin-top: 2.5rem; }
+@media (min-width: 820px) { .compare { grid-template-columns: 1.1fr .9fr; } }
+.compare__col { border-radius: var(--r-lg); padding: 2rem; }
+.compare__col--us { background: var(--navy); color: #fff; }
+.compare__col--them { background: #fff; border: 1px solid var(--line); }
+.compare__col h3 { display: flex; align-items: center; gap: .6rem; }
+.compare__col h3 img { height: 22px; }
+.compare__col ul { list-style: none; padding: 0; margin-top: 1.5rem; display: grid; gap: .9rem; }
+.compare__col li { display: flex; gap: .75rem; align-items: flex-start; font-size: .98rem; }
+.compare__col li svg { flex-shrink: 0; width: 22px; height: 22px; margin-top: .1rem; }
+.compare__col--us li svg { color: var(--mint); } .compare__col--them li svg { color: var(--muted); }
+.compare__col--them li { color: var(--ink-2); }
+.compare__foot { margin-top: 1.75rem; padding-top: 1.25rem; border-top: 1px solid rgba(255,255,255,.14); font-size: .9rem; color: rgba(255,255,255,.75); }
+
+/* ---------------- PLAN GRATUITO ---------------- */
+.plan { background: linear-gradient(135deg, var(--blue) 0%, var(--navy) 100%); color: #fff; border-radius: var(--r-lg); padding: clamp(2rem, 4vw, 3.5rem); display: grid; grid-template-columns: 1fr; gap: 2rem; box-shadow: var(--shadow-lg); }
+@media (min-width: 900px) { .plan { grid-template-columns: 1fr 1.2fr; align-items: center; } }
+.plan__price { font-size: clamp(3rem, 2.5rem + 2vw, 4.5rem); font-weight: 800; line-height: 1; }
+.plan__price small { display: block; font-size: 1rem; font-weight: 500; opacity: .8; margin-top: .5rem; }
+.plan ul { list-style: none; padding: 0; display: grid; gap: .75rem; }
+.plan li { display: flex; gap: .7rem; align-items: flex-start; }
+.plan li svg { width: 22px; height: 22px; color: var(--mint); flex-shrink: 0; }
+.plan .btn { margin-top: 1.75rem; }
+
+/* ---------------- SERVICIOS ---------------- */
+.services { display: grid; grid-template-columns: 1fr; gap: 1.25rem; margin-top: 2.5rem; }
+@media (min-width: 640px) { .services { grid-template-columns: 1fr 1fr; } }
+@media (min-width: 1024px) { .services { grid-template-columns: repeat(4, 1fr); } }
+.service { padding: 1.5rem; display: flex; flex-direction: column; gap: .9rem; transition: transform .25s var(--ease), box-shadow .25s var(--ease); }
+.service:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+.service__icon { width: 46px; height: 46px; border-radius: 12px; background: var(--blue-soft); color: var(--blue); display: grid; place-items: center; }
+.service__icon svg { width: 22px; height: 22px; }
+.service p { color: var(--ink-2); font-size: .95rem; flex: 1; }
+
+/* ---------------- PARA TUS COLABORADORES (réplica) ---------------- */
+.colab { background: #fff; }
+.pillbar { display: inline-block; background: var(--page); border: 1px solid var(--line); border-radius: var(--pill); padding: .6rem 1.2rem; font-weight: 700; margin-bottom: 2.5rem; }
+.colab__grid { display: grid; grid-template-columns: 1fr; gap: 1.25rem; }
+@media (min-width: 900px) { .colab__grid { grid-template-columns: repeat(3, 1fr); } }
+.colab-card { padding: 1.5rem; border-radius: var(--r-lg); background: var(--page); border: 1px solid var(--line); display: flex; flex-direction: column; gap: 1rem; }
+.colab-card h3 { font-size: 1.15rem; }
+.colab-card p { color: var(--ink-2); font-size: .95rem; }
+.colab-card__visual { border-radius: var(--r-md); overflow: hidden; min-height: 200px; }
+.chat { background: #E7F8EF url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Ccircle cx='20' cy='20' r='1.2' fill='%23b7e4c7'/%3E%3C/svg%3E"); padding: 1rem; display: flex; flex-direction: column; gap: .6rem; min-height: 200px; }
+.bubble { max-width: 86%; padding: .65rem .85rem; border-radius: 12px; font-size: .85rem; line-height: 1.4; box-shadow: 0 1px 2px rgba(0,0,0,.08); }
+.bubble--in { align-self: flex-end; background: #FFF7C2; border-bottom-right-radius: 4px; }
+.bubble--out { align-self: flex-start; background: #fff; border-bottom-left-radius: 4px; }
+.banks { background: #fff; padding: 1.25rem; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem 1rem; align-items: center; min-height: 200px; }
+.banks img { height: 26px; width: auto; max-width: 100%; margin: auto; filter: grayscale(1) opacity(.7); }
+.banks .guide { text-align: center; font-weight: 700; color: var(--muted); }
+.goals { background: #fff; padding: 1rem; display: flex; flex-direction: column; gap: .6rem; min-height: 200px; justify-content: center; }
+.goal { display: flex; align-items: center; gap: .75rem; padding: .7rem .85rem; border-radius: 12px; }
+.goal__icon { width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center; font-size: 1rem; }
+.goal b { display: block; font-size: .88rem; }
+.bar { height: 6px; background: rgba(23,37,84,.1); border-radius: 3px; margin-top: .35rem; overflow: hidden; width: 160px; }
+.bar i { display: block; height: 100%; border-radius: 3px; }
+.goal small { font-size: .72rem; color: var(--muted); margin-left: auto; }
+.thumb { position: relative; min-height: 200px; }
+.thumb img { width: 100%; height: 100%; object-fit: cover; position: absolute; inset: 0; }
+.thumb .play { position: absolute; inset: 0; display: grid; place-items: center; }
+.thumb .play span { width: 56px; height: 56px; border-radius: 50%; background: rgba(255,255,255,.92); display: grid; place-items: center; color: var(--blue); box-shadow: 0 10px 30px rgba(0,0,0,.3); }
+.before-after { background: #fff; padding: 1.25rem; min-height: 200px; font-size: .9rem; }
+.before-after .case__label { font-size: .7rem; }
+.before-after .case__row { padding-block: .4rem; }
+.loans { background: #fff; padding: 1.25rem; min-height: 200px; display: flex; flex-direction: column; justify-content: center; gap: .5rem; }
+.loans .tag { background: var(--page); color: var(--ink-2); border: 1px solid var(--line); }
+
+/* ---------------- RECONOCIDOS (réplica) ---------------- */
+.press__grid { display: grid; grid-template-columns: 1fr; gap: 1.25rem; margin-top: 2.5rem; }
+@media (min-width: 960px) { .press__grid { grid-template-columns: 1fr 1fr 1fr; grid-template-rows: auto auto auto; } }
+.press-card { background: #fff; border: 1px solid var(--line); border-radius: var(--r-md); padding: 1.5rem; display: flex; flex-direction: column; gap: .9rem; }
+.press-card--tall { align-items: center; text-align: center; justify-content: center; }
+@media (min-width: 960px) { .press-card--tall { grid-row: 1 / 4; } }
+.press-card__logo { height: 26px; width: auto; align-self: flex-start; }
+.press-card--tall .press-card__logo { height: 44px; align-self: center; }
+.press-card q { color: var(--ink-2); font-size: .98rem; }
+.press-card p { color: var(--ink-2); font-size: .95rem; }
+.press-card .more { margin-top: auto; align-self: flex-end; font-size: .88rem; font-weight: 600; color: var(--ink-2); text-decoration: none; }
+.press-card .more:hover { color: var(--blue); }
+.press-video { position: relative; border-radius: var(--r-md); overflow: hidden; min-height: 190px; }
+.press-video img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: grayscale(1); transition: filter .4s var(--ease), transform .8s var(--ease); }
+.press-video:hover img { filter: none; transform: scale(1.04); }
+.press-video a { position: absolute; right: .9rem; bottom: .9rem; background: rgba(255,255,255,.92); color: var(--navy); border-radius: var(--pill); padding: .45rem .9rem; font-size: .82rem; font-weight: 600; text-decoration: none; }
+.press-social { background: var(--blue); color: #fff; border-radius: var(--r-md); padding: 1.75rem; display: flex; flex-direction: column; justify-content: space-between; gap: 2rem; }
+@media (min-width: 960px) { .press-social { grid-row: 2 / 4; } }
+.press-social h3 { font-size: 1.35rem; font-weight: 600; }
+.press-social__icons { display: flex; flex-wrap: wrap; gap: .75rem; }
+.press-social__icons a { flex: 0 0 44px; width: 44px; height: 44px; border-radius: var(--r-sm); background: rgba(255,255,255,.14); display: grid; place-items: center; transition: transform .2s var(--ease), background-color .2s var(--ease); }
+.press-social__icons a:hover { transform: translateY(-3px); background: rgba(255,255,255,.26); }
+.press-social__icons img { width: 22px; height: 22px; flex-shrink: 0; }
+
+/* ---------------- BANNER FINAL ---------------- */
+.banner { background: #fff; border-radius: var(--r-lg); padding: clamp(2.5rem, 5vw, 4.5rem); text-align: center; border: 1px solid var(--line); box-shadow: var(--shadow); }
+.banner small { display: block; color: var(--ink-2); margin-bottom: 1rem; font-size: 1rem; }
+.banner h2 { max-width: 30ch; margin-inline: auto; }
+.banner .row { display: flex; flex-wrap: wrap; gap: 1rem; justify-content: center; margin-top: 2rem; }
+
+/* ---------------- COMUNIDAD HR ---------------- */
+.community { background: var(--navy); color: #fff; }
+.community__grid { display: grid; grid-template-columns: 1fr; gap: 3rem; align-items: center; }
+@media (min-width: 960px) { .community__grid { grid-template-columns: 1fr 1fr; gap: 4rem; } }
+.community__photo { border-radius: var(--r-lg); overflow: hidden; aspect-ratio: 4/3; box-shadow: var(--shadow-lg); }
+.community__photo img { width: 100%; height: 100%; object-fit: cover; }
+.community p { color: rgba(255,255,255,.75); margin-top: 1rem; }
+.community form { margin-top: 1.75rem; display: grid; gap: .75rem; grid-template-columns: 1fr; }
+@media (min-width: 560px) { .community form { grid-template-columns: 1fr 1fr; } .community form .full { grid-column: span 2; } }
+.community input { min-height: 48px; border-radius: var(--r-sm); border: 1.5px solid rgba(255,255,255,.22); background: rgba(255,255,255,.08); color: #fff; padding: .7rem .9rem; }
+.community input::placeholder { color: rgba(255,255,255,.5); }
+.community input:focus { border-color: var(--mint); outline: none; }
+.community .note { font-size: .8rem; color: rgba(255,255,255,.55); margin-top: .5rem; }
+.community .ok { background: rgba(134,239,172,.15); border: 1px solid rgba(134,239,172,.4); padding: 1rem; border-radius: var(--r-sm); margin-top: 1rem; }
+
+/* ---------------- FAQ (réplica) ---------------- */
+.faq { background: #fff; }
+.faq__list { max-width: 900px; margin: 2.5rem auto 0; display: grid; gap: .75rem; }
+.faq-cat { border-radius: var(--r-sm); background: var(--page); border: 1px solid var(--line); overflow: hidden; }
+.faq-cat > summary { cursor: pointer; list-style: none; padding: 1.1rem 1.5rem; font-size: 1.15rem; font-weight: 700; display: flex; justify-content: space-between; align-items: center; }
+.faq-cat > summary::-webkit-details-marker { display: none; }
+.faq-cat > summary::after { content: ""; width: 10px; height: 10px; border-right: 2px solid var(--ink); border-bottom: 2px solid var(--ink); transform: rotate(45deg); transition: transform .25s var(--ease); }
+.faq-cat[open] > summary::after { transform: rotate(-135deg); }
+.faq-q { border-top: 1px solid var(--line); background: #fff; }
+.faq-q summary { cursor: pointer; list-style: none; padding: 1rem 1.5rem; font-weight: 600; font-size: .98rem; display: flex; justify-content: space-between; gap: 1rem; }
+.faq-q summary::-webkit-details-marker { display: none; }
+.faq-q summary::after { content: "+"; font-size: 1.3rem; line-height: 1; color: var(--ink); }
+.faq-q[open] summary::after { content: "–"; }
+.faq-q p, .faq-q ul { padding: 0 1.5rem 1.1rem; color: var(--ink-2); font-size: .95rem; }
+.faq-q ul { margin: 0; padding-left: 2.6rem; }
+
+/* ---------------- STICKY (móvil) ---------------- */
+.sticky { position: fixed; left: 0; right: 0; bottom: 0; z-index: 60; padding: .75rem 1rem calc(.75rem + env(safe-area-inset-bottom)); background: rgba(255,255,255,.96); backdrop-filter: blur(10px); box-shadow: 0 -8px 24px rgba(23,37,84,.12); transform: translateY(110%); transition: transform .3s var(--ease); }
+.sticky.is-visible { transform: none; }
+.sticky.is-visible.is-swapping { transform: translateY(110%); }
+.header__cta { transition: transform .25s var(--ease), box-shadow .2s var(--ease), background-color .2s var(--ease), opacity .3s var(--ease); }
+.header__cta-text { display: inline-block; transition: opacity .2s var(--ease), transform .2s var(--ease); }
+.header__cta.is-swapping .header__cta-text { opacity: 0; transform: translateY(-6px); }
+@media (max-width: 899px) { body.has-sticky .header__cta { opacity: 0; transform: translateY(-14px); pointer-events: none; } }
+@media (min-width: 900px) { .sticky { display: none; } }
+</style>
+</head>
+<body>
+
+<header class="header is-dark" id="header">
+  <div class="container header__inner">
+    <a href="#top" aria-label="Reevalúa">
+      <img class="header__logo header__logo--light" src="assets/real/logo-reevalua-light.svg" alt="Reevalúa">
+      <img class="header__logo header__logo--dark" src="assets/real/logo-reevalua-dark.svg" alt="Reevalúa">
+    </a>
+    <nav class="header__links">
+      <a href="https://reevalua.com" target="_blank" rel="noopener">Personas</a>
+      <a href="#top">Empresas</a>
+      <a href="#quienes-somos">¿Por qué Reevalúa?</a>
+    </nav>
+    <a class="btn btn--primary header__cta" id="header-cta" href="calculadora.html"><span class="header__cta-text">Calcular el costo para mi empresa</span></a>
+  </div>
+</header>
+
+<!-- ================= HERO ================= -->
+<section class="hero" id="top">
+  <div class="hero__media" id="hero-media">
+    <video autoplay muted loop playsinline poster="assets/hero-poster.jpg" aria-hidden="true">
+      <source src="assets/hero.mp4" type="video/mp4">
+    </video>
+  </div>
+  <div class="hero__shade"></div>
+  <div class="container hero__inner">
+    <div class="hero__grid">
+      <div>
+        <span class="hero__kicker">Calculadora gratuita para organizaciones</span>
+        <h1>Descubre cuánto le cuesta a tu organización el estrés financiero de <span class="rot"><span class="rot__w" id="rot">tus colaboradores</span></span></h1>
+        <p class="hero__sub">Tres datos que ya conoces y una estimación anual del impacto en productividad, rotación y carga de RR. HH., con la metodología a la vista.</p>
+        <div class="hero__cta">
+          <a class="btn btn--primary btn--lg" href="calculadora.html">Calcular el costo para mi empresa <span class="arrow">→</span></a>
+          <span class="hero__trust">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l7 3v6c0 5-3.4 8.4-7 10-3.6-1.6-7-5-7-10V5l7-3z"/></svg>
+            Sin datos sensibles de tu gente. Menos de 3 minutos.
+          </span>
+        </div>
+      </div>
+      <div class="orbit" aria-hidden="true">
+        <div class="orbit__glow"></div>
+        <div class="orbit__ring orbit__ring--1"><span class="orbit__dot"></span></div>
+        <div class="orbit__ring orbit__ring--2"></div>
+        <div class="orbit__ring orbit__ring--3"></div>
+        <div class="orbit__core">
+          <small>Tu estimación incluye</small>
+          <strong>3 impactos</strong>
+          <em>Una cifra principal y un rango</em>
+        </div>
+        <span class="chip chip--1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 20V10M12 20V4M20 20v-7"/></svg>Productividad</span>
+        <span class="chip chip--2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4v5h5M20 20v-5h-5"/><path d="M4.6 15a8 8 0 0 0 14.5 2.5M19.4 9a8 8 0 0 0-14.5-2.5"/></svg>Rotación</span>
+        <span class="chip chip--3"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg>RR. HH.</span>
+      </div>
+    </div>
+  </div>
+  <div class="hero__scroll">Desliza<span></span></div>
+</section>
+
+<!-- ================= LOGOS ================= -->
+<section class="logos">
+  <div class="container">
+    <p class="reveal">Empresas y organizaciones que ya trabajan con Reevalúa</p>
+  </div>
+  <div class="marquee reveal" data-delay="1">
+    <div class="marquee__track" id="marquee-track">
+      <span class="marquee__item"><img src="assets/logos/ambipar.png" alt="Ambipar"></span>
+      <span class="marquee__item"><img src="assets/logos/zapler.svg" alt="Zapler"></span>
+      <span class="marquee__item"><img src="assets/logos/bissu.webp" alt="Bissú"></span>
+      <span class="marquee__item"><img src="assets/logos/pulsosalud.png" alt="Pulso Salud"></span>
+      <span class="marquee__item"><img src="assets/logos/cyz.webp" alt="Comercial CYZ"></span>
+      <span class="marquee__item"><img src="assets/logos/skinner.png" alt="Centro Skinner"></span>
+      <span class="marquee__item"><img src="assets/logos/globalsupply.png" alt="Global Supply"></span>
+      <span class="marquee__item marquee__item--text">ZAFIRO</span>
+      <span class="marquee__item"><img src="assets/logos/swisscorp.svg" alt="Swiss-Corp"></span>
+      <span class="marquee__item"><img src="assets/logos/s4learning.svg" alt="S4Learning"></span>
+      <span class="marquee__item"><img src="assets/logos/doorman.png" alt="Doorman"></span>
+      <span class="marquee__item"><img src="assets/logos/olva.svg" alt="Olva"></span>
+    </div>
+  </div>
+</section>
+
+<!-- ================= QUIÉNES SOMOS ================= -->
+<section class="section about" id="quienes-somos">
+  <div class="container about__grid">
+    <div class="collage reveal">
+      <figure><img src="assets/photos/equipo-planificacion.jpg" alt="Equipo revisando un plan en la oficina" loading="lazy"><span class="stat">Fintech Américas 2025 · Inclusión financiera</span></figure>
+      <figure><img src="assets/photos/mujer-laptop.jpg" alt="Colaboradora trabajando con su laptop" loading="lazy"></figure>
+      <figure><img src="assets/photos/colegas-celebran.jpg" alt="Colegas celebrando un logro" loading="lazy"></figure>
+      <figure><img src="assets/photos/equipo-tablero.jpg" alt="Equipo revisando avances en un tablero" loading="lazy"></figure>
+      <figure><img src="assets/photos/equipo-proyecto.jpg" alt="Equipo conversando sobre un proyecto" loading="lazy"></figure>
+    </div>
+    <div class="reveal" data-delay="2">
+      <h2>Una fintech peruana que acompaña a la gente hasta que sus finanzas se ordenan</h2>
+      <p>Somos Reevalúa, de Preauth. Ayudamos a las personas a salir de deudas, mejorar su historial y recuperar tranquilidad con herramientas simples, accesibles y efectivas. Lo hacemos junto a las organizaciones que quieren que su gente avance.</p>
+      <div class="stats">
+        <div class="stat-card"><b>−65%</b><span>tiempo laboral perdido en temas financieros</span></div>
+        <div class="stat-card"><b>−40%</b><span>estrés financiero reportado</span></div>
+        <div class="stat-card"><b>+23%</b><span>engagement en clima laboral</span></div>
+      </div>
+      <p class="stats__note">Resultados promedio a 6 meses en empresas clientes de Reevalúa.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= VISIÓN ================= -->
+<section class="section vision">
+  <div class="container vision__wrap">
+    <div class="reveal">
+      <h2>Cada persona de tu organización puede volver a avanzar</h2>
+      <p>Detrás de cada colaborador, asociado o afiliado hay metas concretas: pagar la universidad, remodelar la casa, cerrar una deuda que pesa desde hace años. <strong>Cuando esas metas avanzan, la persona rinde mejor, se queda más tiempo y contagia esa tranquilidad a su equipo.</strong></p>
+      <p>Nuestra misión es empoderar a cada persona para que recupere el control de sus finanzas con soluciones claras, humanas y responsables. Por eso acompañamos mes a mes, con asesores reales por WhatsApp y un plan que se adapta a su vida, hasta que la meta se cumple.</p>
+      <div class="values" aria-label="Valores de marca">
+        <span>Empatía</span><span>Transparencia</span><span>Accesibilidad</span><span>Compromiso social</span><span>Innovación</span>
+      </div>
+    </div>
+    <div class="case reveal" data-delay="2">
+      <div class="case__half">
+        <span class="case__label">Antes de Reevalúa</span>
+        <div class="case__row"><span>Deuda original</span><b>S/ 5,000</b></div>
+        <div class="case__row"><span>Estado</span><span class="tag tag--warn">En cobranza</span></div>
+        <div class="case__row"><span>Opciones</span><span style="color:var(--muted)">Prestamista informal</span></div>
+      </div>
+      <div class="case__half case__half--after">
+        <span class="case__label">Después con Reevalúa</span>
+        <div class="case__row"><span>Acuerdo negociado</span><b>S/ 800</b></div>
+        <div class="case__row"><span>Ahorro</span><b>84%</b></div>
+        <div class="case__row"><span>Proceso</span><span class="tag tag--ok">Digital y rápido</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= COMPARATIVA ================= -->
+<section class="section" id="comparativa">
+  <div class="container">
+    <div class="center reveal">
+      <h2>Asesoría financiera pensada para toda tu organización</h2>
+      <p class="lead">Un asesor financiero tradicional hace un gran trabajo con una persona a la vez. Reevalúa lleva ese acompañamiento a cientos de personas al mismo tiempo, por WhatsApp y sin costo para ellas.</p>
+    </div>
+    <div class="compare">
+      <div class="compare__col compare__col--us reveal" data-delay="1">
+        <h3><img src="assets/real/logo-reevalua-light.svg" alt="Reevalúa"></h3>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-6"/></svg>Acompañamiento continuo, mes a mes, hasta que la meta se cumple</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-6"/></svg>Acceso directo por WhatsApp, sin coordinar una cita</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-6"/></svg>Pensado para toda la organización al mismo tiempo</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-6"/></svg>Enfocado en deudas, metas y decisiones del día a día</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-6"/></svg>Reporte agregado y confidencial para la empresa</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 12l3 3 5-6"/></svg>Sin costo para cada colaborador, vía convenio</li>
+        </ul>
+        <p class="compare__foot">Acompañamos a cada persona de tu equipo a la vez, sin que tengas que coordinar una cita para cada una.</p>
+      </div>
+      <div class="compare__col compare__col--them reveal" data-delay="2">
+        <h3>Asesor financiero tradicional</h3>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 12h8"/></svg>Sesiones puntuales, cuando se agenda una cita</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 12h8"/></svg>Contacto por agenda y disponibilidad del asesor</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 12h8"/></svg>Atiende a un cliente a la vez</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 12h8"/></svg>Suele centrarse en inversión y patrimonio</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 12h8"/></svg>Sin reporte agregado para la organización</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 12h8"/></svg>Honorario por sesión o por hora</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PLAN GRATUITO ================= -->
+<section class="section" id="plan" style="background:#fff;">
+  <div class="container">
+    <div class="center reveal">
+      <h2>La puerta de entrada, sin costo para tu organización</h2>
+      <p class="lead">Un solo plan para empresas, gremios, asociaciones y comunidades. Sin costo de implementación ni mensualidad para la organización.</p>
+    </div>
+    <div class="plan reveal" data-delay="1" style="margin-top:2.5rem;">
+      <div>
+        <div class="plan__price">Gratis<small>Plan único B2B, vía convenio con tu organización</small></div>
+        <a class="btn btn--light" href="calculadora.html">Calcular el costo y activar el convenio <span class="arrow">→</span></a>
+      </div>
+      <ul>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l4 4L19 6"/></svg>Reporte financiero completo para cada persona: score, deudas, atrasos y situación en centrales de riesgo</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l4 4L19 6"/></svg>Diagnóstico y plan personalizado que se actualiza cada mes</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l4 4L19 6"/></svg>Metas financieras con tareas semanales que se ajustan si cambia su situación</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l4 4L19 6"/></svg>Asesores reales por WhatsApp, sin agendar cita</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l4 4L19 6"/></svg>Guía para negociar deudas con entidades financieras</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12l4 4L19 6"/></svg>100% confidencial: la organización nunca ve datos individuales</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SERVICIOS COMPLEMENTARIOS ================= -->
+<section class="section" id="servicios">
+  <div class="container">
+    <div class="center reveal">
+      <h2>Lo que se suma al plan gratuito</h2>
+      <p class="lead">Servicios que tu organización puede contratar cuando quiera ir más allá del convenio.</p>
+    </div>
+    <div class="services">
+      <div class="card service reveal" data-delay="1">
+        <span class="service__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4M7 13l3-3 3 2 4-5"/></svg></span>
+        <h3>Panel de empresas</h3>
+        <p>Dashboard con indicadores de salud financiera de tu equipo mes a mes y reportes de adopción por área. Solo KPIs agregados, nunca datos individuales.</p>
+      </div>
+      <div class="card service reveal" data-delay="2">
+        <span class="service__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2.5" y="6" width="19" height="12" rx="2"/><circle cx="12" cy="12" r="2.6"/><path d="M6 6V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v1"/></svg></span>
+        <h3>ADS: adelantos de sueldo</h3>
+        <p>Acceso a un adelanto del sueldo ya generado, con condiciones definidas junto a tu empresa.</p>
+      </div>
+      <div class="card service reveal" data-delay="3">
+        <span class="service__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 3h9l4 4v14H6z"/><path d="M9 12h6M9 16h6M9 8h3"/></svg></span>
+        <h3>D por P: descuento por planilla</h3>
+        <p>Crédito con cuotas descontadas directamente por planilla, de forma ordenada y transparente.</p>
+      </div>
+      <div class="card service reveal" data-delay="4">
+        <span class="service__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19V5l8 4 8-4v14l-8 4z"/><path d="M12 9v14"/></svg></span>
+        <h3>Charlas y talleres</h3>
+        <p>Sesiones presenciales o virtuales, prácticas y sin tecnicismos, para que tu equipo aprenda a manejar deudas, ahorrar y decidir mejor.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PARA TUS COLABORADORES (réplica de reevalua.com) ================= -->
+<section class="section colab" id="colaboradores">
+  <div class="container">
+    <div class="center reveal">
+      <span class="pillbar">Para tus colaboradores</span>
+      <h2>Herramientas reales para resolver sus problemas financieros</h2>
+    </div>
+    <div class="colab__grid">
+      <div class="colab-card reveal" data-delay="1">
+        <div class="colab-card__visual chat">
+          <div class="bubble bubble--in">Me llegó una carta de cobranza 😰</div>
+          <div class="bubble bubble--out">Compárteme el documento. Suelen ser avisos preventivos, no significa que te van a embargar.</div>
+          <div class="bubble bubble--in">¿Puedo negociar para pagar menos?</div>
+          <div class="bubble bubble--out">Sí, armamos una oferta juntos y negociamos directo con la entidad.</div>
+        </div>
+        <h3>Asesores reales por WhatsApp cuando tengan dudas de plata</h3>
+        <p>Tus colaboradores escriben cuando quieran, sin agendar cita. Reciben orientación sobre deudas, negociaciones y decisiones financieras del día a día.</p>
+      </div>
+      <div class="colab-card reveal" data-delay="2">
+        <div class="colab-card__visual banks">
+          <img src="assets/real/logo_bcp.webp" alt="BCP"><img src="assets/real/logo_bbva.svg" alt="BBVA"><img src="assets/real/logo_interbank.svg" alt="Interbank">
+          <img src="assets/real/logo_scotiabank.webp" alt="Scotiabank"><img src="assets/real/logo_pichincha.webp" alt="Banco Pichincha"><img src="assets/real/logo-banbif.webp" alt="BanBif">
+          <img src="assets/real/logo_falabella.webp" alt="Banco Falabella"><img src="assets/real/logo_efectiva.webp" alt="Efectiva"><span class="guide">Guía</span>
+        </div>
+        <h3>Preparación para negociar deudas con entidades financieras</h3>
+        <p>Negociamos con bancos y financieras para reducir lo que deben. Si no hay aliada disponible, los guiamos paso a paso para que negocien por su cuenta.</p>
+      </div>
+      <div class="colab-card reveal" data-delay="3">
+        <div class="colab-card__visual goals">
+          <div class="goal" style="background:#E8EDFF"><span class="goal__icon" style="background:#fff">💳</span><div><b>Salir de deudas</b><div class="bar"><i style="width:66%;background:var(--blue)"></i></div></div><small>4/6</small></div>
+          <div class="goal" style="background:#EAFBF0"><span class="goal__icon" style="background:#fff">🏠</span><div><b>Remodelar mi casa</b><div class="bar"><i style="width:28%;background:var(--mint-dark)"></i></div></div><small>2/7</small></div>
+          <div class="goal" style="background:#FFF7DB"><span class="goal__icon" style="background:#fff">🎓</span><div><b>Pagar la universidad</b><div class="bar"><i style="width:85%;background:#F5A623"></i></div></div><small>6/7</small></div>
+        </div>
+        <h3>Metas financieras con tareas semanales que se ajustan</h3>
+        <p>Cada colaborador define su meta y recibe tareas concretas cada semana. Si cambia su situación, el plan se adapta sin empezar de cero.</p>
+      </div>
+      <div class="colab-card reveal" data-delay="1">
+        <div class="colab-card__visual thumb">
+          <img src="assets/real/thumb-b2b.png" alt="Sesión de educación financiera de Reevalúa" loading="lazy">
+          <span class="play"><span><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span></span>
+        </div>
+        <h3>Educación financiera práctica con contenido de ASBANC</h3>
+        <p>Recursos, guías y contenido práctico para que tus colaboradores desarrollen habilidades financieras reales: presupuesto, ahorro y manejo de deuda.</p>
+      </div>
+      <div class="colab-card reveal" data-delay="2">
+        <div class="colab-card__visual before-after">
+          <span class="case__label">Antes de Reevalúa</span>
+          <div class="case__row"><span>Deuda original</span><b style="color:#B91C1C">S/ 5,000</b></div>
+          <div class="case__row"><span>Estado</span><span class="tag tag--warn">En cobranza</span></div>
+          <div class="case__row"><span>Opciones</span><span style="color:var(--muted)">Prestamista informal</span></div>
+          <span class="case__label" style="display:block;margin-top:1rem;color:var(--mint-dark)">Después con Reevalúa</span>
+          <div class="case__row"><span>Acuerdo negociado</span><b style="color:var(--mint-dark)">S/ 800</b></div>
+          <div class="case__row"><span>Ahorro</span><b style="color:var(--mint-dark)">84%</b></div>
+          <div class="case__row"><span>Proceso</span><span class="tag tag--ok">Digital y rápido</span></div>
+        </div>
+        <h3>Negociación real de deudas</h3>
+        <p>Cada caso se trabaja con la entidad hasta llegar a un acuerdo posible de pagar, sin recurrir a prestamistas informales.</p>
+      </div>
+      <div class="colab-card reveal" data-delay="3">
+        <div class="colab-card__visual loans">
+          <div style="display:flex;flex-wrap:wrap;gap:.5rem"><span class="tag">Préstamos con aliadas</span><span class="tag">Negociación de deudas</span><span class="tag">Sin costo si hay aliada</span></div>
+          <p style="font-size:.9rem;color:var(--ink-2);margin-top:.75rem">Reevalúa compara opciones y acompaña. No desembolsa préstamos ni garantiza aprobaciones: la decisión es de cada entidad.</p>
+        </div>
+        <h3>Acceso a préstamos responsables</h3>
+        <p>Tus colaboradores acceden a crédito con entidades aliadas a tasas competitivas y negocian deudas existentes para reducir lo que deben.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= RECONOCIDOS (réplica de reevalua.com) ================= -->
+<section class="section" id="reconocidos">
+  <div class="container">
+    <h2 class="reveal">Reconocidos internacionalmente y por la prensa</h2>
+    <div class="press__grid">
+      <div class="press-card press-card--tall reveal" data-delay="1">
+        <p style="font-weight:700;color:var(--ink)">Con el respaldo de</p>
+        <img class="press-card__logo" src="assets/real/logo-preauth-dark.svg" alt="Preauth">
+        <p>Una fintech acelerada por UTEC Ventures, Startup Chile, Startup Perú, 500 Global y Endeavor.</p>
+      </div>
+      <div class="press-card reveal" data-delay="2">
+        <img class="press-card__logo" src="assets/real/fintech-americas.svg" alt="Fintech Americas">
+        <q>Ganadores en la categoría de inclusión financiera de las Américas en Fintech Américas 2025</q>
+        <a class="more" href="https://www.fintechamericas.co/ganadores-premios?filter_tabs=fintech&amp;page=3" target="_blank" rel="noopener">Ver premio →</a>
+      </div>
+      <div class="press-card reveal" data-delay="3">
+        <img class="press-card__logo" src="assets/real/gestion.png" alt="Gestión">
+        <q>Peruana Preauth participará en el Visa Fintech Accelerator en Silicon Valley</q>
+        <a class="more" href="https://gestion.pe/economia/empresas/fintech-peruana-participara-del-visa-fintech-accelerator-en-silicon-valley-visa-global-startups-empresas-noticia/" target="_blank" rel="noopener">Ver noticia →</a>
+      </div>
+      <div class="press-video reveal" data-delay="2">
+        <img src="assets/real/emprende-sin-floro.png" alt="Entrevista: 180 millones de latinoamericanos tienen deudas" loading="lazy">
+        <a href="https://www.youtube.com/watch?v=BSi82qRwl5Q&amp;t=1891s" target="_blank" rel="noopener">Ver entrevista →</a>
+      </div>
+      <div class="press-social reveal" data-delay="3">
+        <h3>Entérate de más noticias desde nuestras redes sociales</h3>
+        <div class="press-social__icons">
+          <a href="https://www.facebook.com/reevaluaperu" aria-label="Facebook"><img src="assets/real/facebook.svg" alt=""></a>
+          <a href="https://www.instagram.com/reevalua_" aria-label="Instagram"><img src="assets/real/instagram.svg" alt=""></a>
+          <a href="https://www.youtube.com/@reevalua" aria-label="YouTube"><img src="assets/real/youtube2.svg" alt=""></a>
+          <a href="https://www.tiktok.com/@reevalua" aria-label="TikTok"><img src="assets/real/tiktok.svg" alt=""></a>
+          <a href="https://www.linkedin.com/showcase/reevalua/" aria-label="LinkedIn"><img src="assets/real/linkedin.svg" alt=""></a>
+        </div>
+      </div>
+      <div class="press-video reveal" data-delay="2">
+        <img src="assets/real/inversion-simple.png" alt="Entrevista: ¿qué pasa si te endeudas con el banco?" loading="lazy">
+        <a href="https://www.youtube.com/watch?v=RiSVC6H8P3Y" target="_blank" rel="noopener">Ver entrevista →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= BANNER FINAL (réplica) ================= -->
+<section class="section" style="padding-top:0">
+  <div class="container">
+    <div class="banner reveal">
+      <small>Ya inviertes en beneficios para tu equipo</small>
+      <h2>¿Por qué no agregar uno que reduzca su estrés financiero y aumente su productividad?</h2>
+      <div class="row">
+        <a class="btn btn--primary btn--lg" href="calculadora.html">Calcular el costo para mi empresa <span class="arrow">→</span></a>
+        <a class="btn btn--ghost btn--lg" href="https://meetings.hubspot.com/raquel120" target="_blank" rel="noopener">Habla con un experto</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= COMUNIDAD HR ================= -->
+<section class="section community" id="comunidad">
+  <div class="container community__grid">
+    <div class="community__photo reveal">
+      <img src="assets/photos/networking-recepcion.jpg" alt="Recepción de networking con líderes de RR. HH." loading="lazy">
+    </div>
+    <div class="reveal" data-delay="2">
+      <h2>La conversación de RR. HH. en Perú pasa por esta mesa. Súmate.</h2>
+      <p>Eventos, cenas de networking y una comunidad de quienes lideran el bienestar de su gente en el país. Un espacio para compartir lo que funciona, sin agenda comercial.</p>
+      <form id="community-form" novalidate>
+        <input type="text" placeholder="Nombre" required>
+        <input type="text" placeholder="Cargo" required>
+        <input type="email" class="full" placeholder="Correo corporativo" required>
+        <input type="text" class="full" placeholder="Empresa u organización" required>
+        <button class="btn btn--light btn--block full" type="submit">Quiero sumarme</button>
+      </form>
+      <p class="note">Demo: este formulario no envía datos. En producción conecta al flujo de nurturing de HubSpot.</p>
+      <div class="ok" id="community-ok" hidden>Listo. En los próximos días te escribimos para sumarte a la próxima cena de la comunidad.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FAQ (réplica, 27 preguntas) ================= -->
+<section class="section faq" id="faq">
+  <div class="container">
+    <h2 class="reveal">Preguntas frecuentes sobre bienestar financiero corporativo</h2>
+    <div class="faq__list reveal" data-delay="1">
+
+      <details class="faq-cat" open>
+        <summary>Sobre el servicio</summary>
+        <details class="faq-q" open><summary>¿Qué es Reevalúa for Business?</summary><p>Reevalúa for Business es una plataforma de bienestar financiero diseñada para empresas que buscan mejorar la salud financiera de sus colaboradores. A través de diagnósticos personalizados, renegociación de deudas y educación financiera, ayudamos a los empleados a reducir su estrés financiero y a las empresas a aumentar su productividad y retención de talento.</p></details>
+        <details class="faq-q"><summary>¿Por qué una empresa debería implementar Reevalúa for Business?</summary><p>Reevalúa for Business no solo mejora la calidad de vida de los colaboradores, sino que también impacta directamente en la productividad, reduce la rotación y fortalece la marca empleadora. Somos una solución integral que beneficia tanto a las empresas como a los empleados.</p></details>
+        <details class="faq-q"><summary>¿Qué hace único a Reevalúa for Business?</summary><p>Combinamos tecnología avanzada con un enfoque humano. Ofrecemos herramientas de diagnóstico, renegociación de deudas, educación financiera y asesoría continua a través de canales accesibles como WhatsApp, garantizando resultados medibles y sostenibles.</p></details>
+      </details>
+
+      <details class="faq-cat">
+        <summary>Sobre el proceso</summary>
+        <details class="faq-q"><summary>¿Cómo funciona la implementación de Reevalúa for Business en una empresa?</summary><p>Comenzamos con un diagnóstico financiero inicial para los colaboradores, seguido de un plan personalizado que incluye renegociación de deudas, educación financiera y monitoreo continuo. Ofrecemos reportes periódicos para medir el impacto en la productividad y la salud financiera del equipo.</p></details>
+        <details class="faq-q"><summary>¿Qué tipo de empresas pueden usar Reevalúa for Business?</summary><p>Nuestro servicio está diseñado para empresas de cualquier tamaño y sector, especialmente aquellas con una alta concentración de empleados operativos o administrativos que enfrentan problemas financieros.</p></details>
+        <details class="faq-q"><summary>¿Cómo se inicia el proceso?</summary><p>El primer paso es contactar a nuestro equipo para una evaluación inicial. Diseñamos un plan de implementación adaptado a las necesidades de la empresa y sus colaboradores.</p></details>
+        <details class="faq-q"><summary>¿Cuánto tiempo toma implementar Reevalúa for Business?</summary><p>La implementación es rápida y sencilla. Dependiendo del tamaño de la empresa, el diagnóstico inicial puede completarse en semanas, con resultados visibles en los primeros meses.</p></details>
+        <details class="faq-q"><summary>¿Cómo se asegura la adopción del programa por parte de los empleados?</summary><p>Ofrecemos campañas de comunicación internas, talleres educativos y soporte continuo a través de WhatsApp para garantizar que los empleados comprendan y aprovechen al máximo el servicio.</p></details>
+      </details>
+
+      <details class="faq-cat">
+        <summary>Sobre los beneficios</summary>
+        <details class="faq-q"><summary>¿Qué beneficios ofrece Reevalúa for Business a las empresas?</summary><p>Incremento de la productividad, reducción del ausentismo, mejora en la retención de talento, y cumplimiento de objetivos de responsabilidad social corporativa (RSC). Además, ofrecemos herramientas prácticas para monitorear la salud financiera del equipo.</p></details>
+        <details class="faq-q"><summary>¿Qué resultados pueden esperar las empresas con Reevalúa for Business?</summary><p>Las empresas pueden ver una reducción de hasta un 25% en la rotación, un aumento del 10-15% en la productividad, y una disminución del ausentismo en un 15-20%. También mejorará la percepción de la empresa como un empleador responsable.</p></details>
+        <details class="faq-q"><summary>¿Cómo impacta Reevalúa for Business en los empleados?</summary><p>Los colaboradores pueden reducir su estrés financiero, liquidar deudas con descuentos de hasta el 90%, mejorar su historial crediticio y acceder a educación financiera personalizada, lo que impacta positivamente en su calidad de vida y desempeño laboral.</p></details>
+        <details class="faq-q"><summary>¿Qué diferencia a Reevalúa for Business de otros programas de bienestar?</summary><p>A diferencia de los programas genéricos, nos enfocamos en la salud financiera con soluciones prácticas, personalizadas y tecnológicas, respaldadas por resultados tangibles y un impacto sostenible.</p></details>
+      </details>
+
+      <details class="faq-cat">
+        <summary>Sobre costos</summary>
+        <details class="faq-q"><summary>¿Cuánto cuesta implementar Reevalúa for Business?</summary><p>Ofrecemos planes flexibles adaptados al tamaño y necesidades de la empresa. Nuestro modelo incluye un costo inicial por diagnóstico y una tarifa mensual por empleado suscrito.</p></details>
+        <details class="faq-q"><summary>¿Qué incluye el costo del servicio?</summary><p>Incluye diagnóstico financiero, asesoría continua, renegociación de deudas, educación financiera personalizada y reportes de impacto para la empresa.</p></details>
+        <details class="faq-q"><summary>¿Qué pasa si los empleados no usan el servicio?</summary><p>Diseñamos estrategias para garantizar la adopción, pero si un colaborador no participa activamente, la empresa puede reubicar la inversión en otro empleado interesado.</p></details>
+      </details>
+
+      <details class="faq-cat">
+        <summary>Sobre privacidad y confianza</summary>
+        <details class="faq-q"><summary>¿Cómo protegen la información financiera de los empleados?</summary><p>Cumplimos con los más altos estándares de seguridad de datos y confidencialidad. A continuación, detallamos las principales medidas, certificaciones y protocolos que respaldan nuestra infraestructura.</p>
+          <ul><li>Bases de datos cifradas y sin salida a Internet</li><li>Comunicación cifrada (SSL/TLS) y mensajes end-to-end</li><li>Doble factor de autenticación (2FA)</li><li>Accesos controlados y segmentados</li><li>Gestión activa de vulnerabilidades con Veracode</li><li>Servidores con certificaciones ISO 27001:2022 y SOC 2 Type II</li><li>Alineados con GDPR y CCPA</li><li>SLA garantizado del 99.95%</li></ul>
+          <p>Toda la información compartida en Reevalúa está protegida con tecnología avanzada y no se comparte sin autorización.</p></details>
+        <details class="faq-q"><summary>¿Cómo se mide el impacto del programa en la empresa?</summary><p>Proporcionamos reportes periódicos que incluyen métricas de productividad, retención, ausentismo y mejora de la salud financiera de los colaboradores.</p></details>
+        <details class="faq-q"><summary>¿Qué garantías tienen las empresas sobre los resultados?</summary><p>Nuestro historial de casos de éxito y el enfoque basado en datos respaldan nuestra promesa de impacto positivo. Aunque cada empresa es única, siempre trabajamos para maximizar los beneficios.</p></details>
+      </details>
+
+      <details class="faq-cat">
+        <summary>Sobre accesibilidad</summary>
+        <details class="faq-q"><summary>¿Cómo acceden los empleados a Reevalúa for Business?</summary><p>Los empleados pueden acceder fácilmente a través de WhatsApp o plataformas digitales, sin necesidad de conocimientos técnicos avanzados.</p></details>
+        <details class="faq-q"><summary>¿Es necesario que los empleados compartan toda su información financiera?</summary><p>Solo se solicita la información necesaria para el diagnóstico y las negociaciones. Todo se maneja con total confidencialidad.</p></details>
+        <details class="faq-q"><summary>¿Reevalúa for Business funciona fuera de Perú?</summary><p>Actualmente estamos enfocados en Perú, pero tenemos planes de expansión a otros países de América Latina.</p></details>
+      </details>
+
+      <details class="faq-cat">
+        <summary>Sobre educación financiera</summary>
+        <details class="faq-q"><summary>¿Qué tipo de educación financiera ofrece Reevalúa for Business?</summary><p>Ofrecemos talleres, materiales digitales y asesoría personalizada que cubren temas como ahorro, manejo de presupuesto, prevención de endeudamiento y construcción de historial crediticio.</p></details>
+        <details class="faq-q"><summary>¿Cómo se entrega la educación financiera a los empleados?</summary><p>A través de talleres grupales, contenido interactivo y consultas personalizadas en WhatsApp.</p></details>
+        <details class="faq-q"><summary>¿Cómo asegura Reevalúa que los empleados apliquen lo aprendido?</summary><p>Hacemos seguimiento continuo y ajustamos los materiales a las necesidades específicas de cada colaborador, fomentando la aplicación práctica en su vida diaria.</p></details>
+      </details>
+
+      <details class="faq-cat">
+        <summary>Sobre el impacto social y empresarial</summary>
+        <details class="faq-q"><summary>¿Cómo contribuye Reevalúa for Business a los objetivos de RSC de la empresa?</summary><p>Reevalúa fomenta la inclusión financiera, mejora la calidad de vida de los empleados y fortalece la reputación de la empresa como un empleador responsable.</p></details>
+        <details class="faq-q"><summary>¿Qué impacto tiene Reevalúa for Business en el clima laboral?</summary><p>Reduce el estrés financiero, mejora la moral del equipo y crea un ambiente laboral más saludable y productivo.</p></details>
+        <details class="faq-q"><summary>¿Cómo demuestra Reevalúa el retorno de inversión (ROI)?</summary><p>Medimos el impacto en métricas clave como retención, productividad y reducción de ausentismo, presentando resultados claros y cuantificables a las empresas.</p></details>
+      </details>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================= FOOTER (réplica de reevalua.com) ================= -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <img src="assets/real/logo-reevalua-dark.svg" alt="Reevalúa">
+        <p>Ayudamos a miles de personas a <strong>revisar su reporte</strong>, <strong>ordenar sus deudas</strong> y avanzar con <strong>metas financieras claras</strong>.</p>
+        <div class="footer__products">
+          <a href="https://reevalua.com/reporte-de-deudas">Reporte de deudas</a>
+          <a href="https://reevalua.com/reevalua-plus">Reevalúa+</a>
+        </div>
+        <div class="footer__social">
+          <a href="https://www.facebook.com/reevaluaperu" aria-label="Facebook"><img src="assets/real/facebook.svg" alt=""></a>
+          <a href="https://www.instagram.com/reevalua_" aria-label="Instagram"><img src="assets/real/instagram.svg" alt=""></a>
+          <a href="https://www.youtube.com/@reevalua" aria-label="YouTube"><img src="assets/real/youtube2.svg" alt=""></a>
+          <a href="https://www.tiktok.com/@reevalua" aria-label="TikTok"><img src="assets/real/tiktok.svg" alt=""></a>
+          <a href="https://www.linkedin.com/showcase/reevalua/" aria-label="LinkedIn"><img src="assets/real/linkedin.svg" alt=""></a>
+        </div>
+      </div>
+      <div class="footer__col">
+        <h4>Préstamos</h4>
+        <a href="https://reevalua.com/prestamo">Comparar préstamos</a><a href="https://reevalua.com/prestamo-personal">Préstamo personal</a><a href="https://reevalua.com/prestamo#comparador-productos-all-title">Préstamos online en Perú</a><a href="https://reevalua.com/prestamos-rapidos">Préstamos rápidos</a><a href="https://reevalua.com/prestamos-con-dni">Préstamos con DNI</a><a href="https://reevalua.com/prestamos-200-soles">Préstamo de 200 soles</a><a href="https://reevalua.com/prestamos-300-soles">Préstamo de 300 soles</a><a href="https://reevalua.com/prestamos-500-soles">Préstamo de 500 soles</a><a href="https://reevalua.com/prestamos-1000-soles">Préstamo de 1000 soles</a>
+      </div>
+      <div class="footer__col">
+        <h4>Deudas y score</h4>
+        <a href="https://reevalua.com/reporte-de-deudas">Reporte de deudas</a><a href="https://reevalua.com/consultar-score-crediticio-gratis">Consultar score gratis</a><a href="https://reevalua.com/negociacion-de-deudas">Negociación de deudas</a><a href="https://reevalua.com/como-negociar-deuda-con-banco">Cómo negociar una deuda</a><a href="https://reevalua.com/salir-de-infocorp">Salir de Infocorp</a><a href="https://reevalua.com/carta-de-no-adeudo-peru">Carta de no adeudo</a><a href="https://reevalua.com/deuda-pagada-sigue-apareciendo-infocorp">Deuda pagada sigue apareciendo</a>
+      </div>
+      <div class="footer__col">
+        <h4>Productos</h4>
+        <a href="https://reevalua.com/reevalua-plus">Reevalúa+</a><a href="https://reevalua.com/asesoria-financiera-personalizada">Asesoría financiera</a><a href="https://reevalua.com/plan-financiero-personal">Plan financiero personal</a><a href="https://reevalua.com/reevalua-es-confiable">Por qué confiar en Reevalúa</a><a href="https://reevalua.com/blog">Blog de finanzas</a><a href="https://reevalua.com/registro">Crear cuenta gratis</a>
+      </div>
+      <div class="footer__col">
+        <h4>Legal</h4>
+        <a href="https://reevalua.com/privacy">Política de privacidad</a><a href="https://reevalua.com/terms">Términos y condiciones</a><a href="https://reevalua.com/reclamaciones">Libro de reclamaciones</a><a href="https://reevalua.com/sitemap.xml">Sitemap</a>
+      </div>
+    </div>
+    <div class="footer__bottom">
+      <span>© 2026 Reevalúa. Todos los derechos reservados.</span>
+      <span>Reevalúa es un producto de <a href="https://preauth.io" target="_blank" rel="noopener">Preauth</a> · Instacash Peru SAC · 20606997559</span>
+    </div>
+  </div>
+</footer>
+
+<div class="sticky" id="sticky">
+  <a class="btn btn--primary btn--block" id="sticky-btn" href="calculadora.html">Calcular el costo para mi empresa →</a>
+</div>
+
+<script>
+(function () {
+  var WORDS = ["tus colaboradores", "tus asociados", "tus afiliados", "tu comunidad"];
+  var reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  // Palabra rotativa del H1 (ICPs)
+  var rot = document.getElementById("rot"), i = 0;
+  setInterval(function () {
+    if (document.hidden) return;
+    i = (i + 1) % WORDS.length;
+    if (reduced) { rot.textContent = WORDS[i]; return; }
+    rot.classList.add("out");
+    setTimeout(function () {
+      rot.classList.add("in"); rot.textContent = WORDS[i]; rot.classList.remove("out");
+      void rot.offsetWidth;
+      setTimeout(function () { rot.classList.remove("in"); }, 30);
+    }, 450);
+  }, 2800);
+
+  // Marquee: duplicar para loop infinito
+  var track = document.getElementById("marquee-track");
+  track.innerHTML += track.innerHTML;
+
+  // Reveal on scroll
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add("is-in"); io.unobserve(e.target); } });
+  }, { threshold: .12, rootMargin: "0px 0px -8% 0px" });
+  document.querySelectorAll(".reveal").forEach(function (el) { io.observe(el); });
+
+  // Header: transparente sobre el hero, claro después
+  var header = document.getElementById("header"), hero = document.getElementById("top");
+  new IntersectionObserver(function (entries) {
+    var overHero = entries[0].isIntersecting && entries[0].boundingClientRect.bottom > 80;
+    header.classList.toggle("is-dark", overHero); header.classList.toggle("is-light", !overHero);
+  }, { threshold: [0, .1, .2, .3, .4, .5, .6, .7, .8, .9, 1] }).observe(hero);
+
+  // Parallax del video
+  var media = document.getElementById("hero-media");
+  if (!reduced) {
+    window.addEventListener("scroll", function () {
+      var y = window.scrollY; if (y < window.innerHeight * 1.2) media.style.transform = "translateY(" + (y * 0.25) + "px)";
+    }, { passive: true });
+  }
+
+  // Sticky móvil: aparece después del hero; cambia de texto en la sección del plan
+  var sticky = document.getElementById("sticky"), stickyBtn = document.getElementById("sticky-btn"), plan = document.getElementById("plan");
+  var headerCta = document.getElementById("header-cta"), headerCtaText = headerCta.querySelector(".header__cta-text");
+  var pastHero = false, pastPlan = false, currentLabel = "";
+  var LABELS = { calc: "Calcular el costo para mi empresa", plan: "Activa tu convenio gratuito" };
+  function swapLabel(label) {
+    if (label === currentLabel) return; currentLabel = label;
+    if (sticky.classList.contains("is-visible") && !reduced) {
+      sticky.classList.add("is-swapping");
+      setTimeout(function () { stickyBtn.textContent = label + " →"; sticky.classList.remove("is-swapping"); }, 280);
+    } else { stickyBtn.textContent = label + " →"; }
+    headerCta.classList.add("is-swapping");
+    setTimeout(function () { headerCtaText.textContent = label; headerCta.classList.remove("is-swapping"); }, 200);
+  }
+  function upd() {
+    sticky.classList.toggle("is-visible", pastHero);
+    document.body.classList.toggle("has-sticky", pastHero);
+    swapLabel(pastPlan ? LABELS.plan : LABELS.calc);
+  }
+  new IntersectionObserver(function (e) { pastHero = !e[0].isIntersecting || e[0].boundingClientRect.bottom < 0; upd(); }, { threshold: 0 }).observe(hero);
+  new IntersectionObserver(function (e) { pastPlan = e[0].boundingClientRect.top < window.innerHeight * .5; upd(); }, { threshold: [0, .5, 1] }).observe(plan);
+  // Respaldo por scroll (por si el observer no dispara, p. ej. pestaña en segundo plano)
+  window.addEventListener("scroll", function () {
+    var hb = hero.getBoundingClientRect().bottom;
+    pastHero = hb < 0; pastPlan = plan.getBoundingClientRect().top < window.innerHeight * .5; upd();
+    var overHero = hb > 80; header.classList.toggle("is-dark", overHero); header.classList.toggle("is-light", !overHero);
+  }, { passive: true });
+
+  // Formulario comunidad (demo)
+  var cf = document.getElementById("community-form");
+  cf.addEventListener("submit", function (e) { e.preventDefault(); document.getElementById("community-ok").hidden = false; });
+})();
+</script>
+</body>
+</html>

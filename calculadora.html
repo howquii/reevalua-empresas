@@ -1,0 +1,400 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Calculadora Reevalúa Empresas</title>
+<meta name="description" content="Estima en 3 minutos cuánto le cuesta a tu organización el estrés financiero de su gente. Metodología visible, sin datos sensibles.">
+<link rel="icon" href="assets/real/logo-reevalua.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="shared.css">
+<style>
+body { background: var(--page); }
+.topbar { position: sticky; top: 0; z-index: 50; background: rgba(255,255,255,.94); backdrop-filter: blur(10px); border-bottom: 1px solid var(--line); }
+.topbar__inner { display: flex; align-items: center; justify-content: space-between; padding-block: .9rem; gap: 1rem; }
+.topbar img { height: 28px; }
+.topbar .step-count { font-weight: 700; color: var(--blue); font-variant-numeric: tabular-nums; }
+.topbar .step-count small { color: var(--muted); font-weight: 500; }
+.back { text-decoration: none; font-weight: 600; font-size: .9rem; color: var(--ink-2); display: inline-flex; gap: .4rem; align-items: center; }
+
+.stepper { background: #fff; border-bottom: 1px solid var(--line); }
+.stepper__inner { display: flex; align-items: flex-start; gap: 0; padding-block: 1.1rem .9rem; overflow-x: auto; }
+.dot { display: flex; flex-direction: column; align-items: center; gap: .35rem; flex-shrink: 0; width: 96px; }
+.dot__n { width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; font-size: .8rem; font-weight: 700; background: var(--gray); color: var(--muted); transition: background-color .3s var(--ease), color .3s var(--ease); }
+.dot__l { font-size: .7rem; color: var(--muted); text-align: center; }
+.dot.done .dot__n { background: var(--mint-dark); color: #fff; } .dot.active .dot__n { background: var(--blue); color: #fff; } .dot.active .dot__l { color: var(--ink); font-weight: 700; }
+.line { flex: 1; min-width: 10px; height: 2px; background: var(--gray); margin-top: 13px; }
+.line.done { background: var(--mint-dark); }
+
+.wrap { max-width: 1040px; margin-inline: auto; padding: clamp(1.5rem, 4vw, 3rem) clamp(1rem, 4vw, 2.5rem) 5rem; }
+.panel { display: none; }
+.panel.active { display: block; animation: fade .45s var(--ease); }
+.panel.active.two { display: grid; }
+@keyframes fade { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+.two { grid-template-columns: 1fr; gap: 1.25rem; }
+@media (min-width: 880px) { .two { grid-template-columns: 1.35fr 1fr; align-items: start; } }
+.q { background: #fff; border-radius: var(--r-lg); border: 1px solid var(--line); box-shadow: var(--shadow); padding: clamp(1.5rem, 3vw, 2.5rem); }
+.q__n { font-size: .78rem; font-weight: 700; color: var(--blue); letter-spacing: .04em; }
+.q h2 { font-size: clamp(1.4rem, 1.2rem + 1vw, 2rem); margin-top: .5rem; }
+.q__help { color: var(--muted); margin-top: .75rem; margin-bottom: 1.75rem; }
+.aside { background: var(--navy); color: #fff; border-radius: var(--r-lg); padding: 2rem; display: flex; flex-direction: column; gap: .9rem; position: relative; overflow: hidden; }
+.aside::after { content: ""; position: absolute; right: -60px; bottom: -60px; width: 220px; height: 220px; border-radius: 50%; border: 40px solid rgba(255,255,255,.05); }
+.aside__ic { width: 46px; height: 46px; border-radius: 12px; background: rgba(255,255,255,.1); display: grid; place-items: center; color: var(--mint); }
+.aside__ic svg { width: 22px; height: 22px; }
+.aside__t { font-size: .72rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--sky); }
+.aside h3 { font-size: 1.15rem; }
+.aside p { color: rgba(255,255,255,.72); font-size: .92rem; }
+.aside__note { display: flex; gap: .5rem; font-size: .82rem; color: rgba(255,255,255,.72); border-top: 1px solid rgba(255,255,255,.14); padding-top: 1rem; margin-top: auto; }
+.aside__note svg { flex-shrink: 0; width: 16px; height: 16px; margin-top: 2px; color: var(--mint); }
+
+.field label { display: block; font-size: .85rem; font-weight: 700; margin-bottom: .5rem; }
+.field input[type=text], .field input[type=email], .field input[type=tel] { width: 100%; min-height: 50px; border: 1.5px solid var(--line); border-radius: var(--r-sm); padding: .8rem 1rem; font-size: 1.05rem; background: var(--page); }
+.field input:focus { border-color: var(--blue); outline: none; background: #fff; }
+.field input.bad { border-color: #DC2626; }
+.hint { font-size: .85rem; color: var(--ink-2); margin-top: .6rem; line-height: 1.5; }
+.suffix { position: relative; } .suffix span { position: absolute; right: 1rem; top: 50%; transform: translateY(-50%); color: var(--muted); font-weight: 600; }
+.chips { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: .75rem; }
+.chip { border: 1.5px solid var(--line); background: #fff; border-radius: var(--pill); padding: .45rem 1rem; font-weight: 600; font-size: .88rem; cursor: pointer; transition: all .2s var(--ease); }
+.chip:hover { border-color: var(--blue); color: var(--blue); }
+.opts { display: grid; gap: .7rem; grid-template-columns: 1fr; }
+@media (min-width: 640px) { .opts--2 { grid-template-columns: 1fr 1fr; } }
+.opt { display: flex; gap: .8rem; align-items: flex-start; border: 1.5px solid var(--line); background: #fff; border-radius: var(--r-md); padding: 1rem 1.1rem; cursor: pointer; transition: border-color .2s var(--ease), background-color .2s var(--ease), transform .2s var(--ease); }
+.opt:hover { transform: translateY(-2px); }
+.opt input { margin-top: .25rem; accent-color: var(--blue); flex-shrink: 0; }
+.opt b { display: block; font-size: .95rem; } .opt small { color: var(--muted); font-size: .8rem; }
+.opt.sel { border-color: var(--blue); background: var(--blue-soft); }
+.nav { display: flex; justify-content: space-between; align-items: center; margin-top: 2rem; gap: 1rem; }
+.linkbtn { background: none; border: 0; color: var(--muted); font-weight: 600; cursor: pointer; padding: .5rem; }
+.demo { display: inline-block; font-size: .72rem; font-weight: 600; background: #FEF3C7; color: #92400E; border-radius: var(--pill); padding: .25rem .7rem; }
+
+/* Gate */
+.gate { display: grid; grid-template-columns: 1fr; border-radius: var(--r-lg); overflow: hidden; box-shadow: var(--shadow-lg); }
+@media (min-width: 880px) { .gate { grid-template-columns: 1.05fr 1fr; } }
+.gate__l { background: var(--navy); color: #fff; padding: clamp(1.75rem, 4vw, 3rem); display: flex; flex-direction: column; justify-content: center; gap: .75rem; }
+.gate__t { font-size: .75rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--mint); }
+.gate__fig { font-size: clamp(1.7rem, 1.3rem + 1.8vw, 2.6rem); font-weight: 800; font-variant-numeric: tabular-nums; }
+.gate__fig i { font-style: normal; color: rgba(255,255,255,.55); font-weight: 500; font-size: .6em; margin: 0 .3em; }
+.gate__fig b { color: var(--mint); }
+.gate__l p { color: rgba(255,255,255,.72); }
+.gate__chips { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: .5rem; }
+.gate__chips span { font-size: .78rem; background: rgba(255,255,255,.1); padding: .3rem .7rem; border-radius: var(--pill); }
+.gate__r { background: #fff; padding: clamp(1.75rem, 4vw, 3rem); display: grid; gap: 1rem; }
+.consent { display: flex; gap: .6rem; align-items: flex-start; font-size: .85rem; color: var(--ink-2); }
+.consent input { margin-top: .2rem; accent-color: var(--blue); }
+
+/* Resultado */
+.res { border-radius: var(--r-lg); overflow: hidden; box-shadow: var(--shadow-lg); }
+.res__top { background: var(--navy); color: #fff; padding: clamp(1.75rem, 4vw, 3rem); display: grid; gap: 1.5rem; grid-template-columns: 1fr; }
+@media (min-width: 880px) { .res__top { grid-template-columns: 1.3fr 1fr; align-items: center; } }
+.res__t { font-size: .75rem; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--mint); }
+.res__h { font-size: clamp(1.5rem, 1.2rem + 1.4vw, 2.2rem); font-weight: 800; margin-top: .5rem; }
+.res__fig { font-size: clamp(2.4rem, 1.8rem + 3vw, 3.8rem); font-weight: 800; color: var(--mint); font-variant-numeric: tabular-nums; line-height: 1.05; margin-top: .5rem; }
+.res__fig small { font-size: .38em; color: rgba(255,255,255,.7); font-weight: 500; }
+.res__sub { color: rgba(255,255,255,.72); margin-top: .75rem; }
+.res__range { background: rgba(255,255,255,.08); border-radius: var(--r-md); padding: 1.25rem 1.5rem; }
+.res__range small { display: block; font-size: .72rem; text-transform: uppercase; letter-spacing: .05em; color: rgba(255,255,255,.6); font-weight: 700; }
+.res__range b { display: block; font-size: 1.5rem; margin-top: .3rem; font-variant-numeric: tabular-nums; }
+.res__range p { font-size: .8rem; color: rgba(255,255,255,.6); margin-top: .4rem; }
+.res__cards { background: var(--navy); padding: 0 clamp(1.75rem, 4vw, 3rem) clamp(1.75rem, 4vw, 3rem); display: grid; gap: 1rem; grid-template-columns: 1fr; }
+@media (min-width: 640px) { .res__cards { grid-template-columns: repeat(3, 1fr); } }
+.rc { background: #fff; border-radius: var(--r-md); padding: 1.25rem; }
+.rc__l { display: flex; align-items: center; gap: .5rem; font-size: .72rem; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; color: var(--blue); }
+.rc__l svg { width: 16px; height: 16px; }
+.rc__v { font-size: 1.5rem; font-weight: 800; margin-top: .5rem; font-variant-numeric: tabular-nums; }
+.rc__d { font-size: .82rem; color: var(--muted); margin-top: .3rem; }
+.method { background: #fff; padding: clamp(1.75rem, 4vw, 3rem); }
+.method h3 { font-size: 1.4rem; margin-top: .25rem; }
+.mblock + .mblock { margin-top: 1.75rem; padding-top: 1.75rem; border-top: 1px solid var(--line); }
+.mblock small { font-size: .74rem; font-weight: 700; color: var(--blue); letter-spacing: .05em; }
+.mblock h4 { font-size: 1rem; margin: .3rem 0 .6rem; }
+.mblock ul { padding-left: 1.1rem; color: var(--ink-2); font-size: .92rem; display: grid; gap: .4rem; }
+.disc { background: #FEF3C7; color: #78350F; border-radius: var(--r-md); padding: 1.25rem 1.5rem; margin-top: 2rem; font-size: .88rem; }
+.actions { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 2rem; }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="container topbar__inner">
+    <a href="index.html" aria-label="Reevalúa"><img src="assets/real/logo-reevalua-dark.svg" alt="Reevalúa"></a>
+    <a class="back" href="index.html">← Volver a Reevalúa Empresas</a>
+    <span class="step-count"><span id="stepnum">01</span><small> / 07</small></span>
+  </div>
+</div>
+<div class="stepper"><div class="container stepper__inner" id="stepper"></div></div>
+
+<main class="wrap" id="calc">
+
+  <!-- 1 Trabajadores -->
+  <section class="panel active two" data-step="1">
+    <div class="q">
+      <span class="q__n">PREGUNTA 1 DE 5</span>
+      <h2>¿Cuántas personas trabajan actualmente en tu organización?</h2>
+      <p class="q__help">No necesitamos un dato exacto. Un número aproximado alcanza para estimar la escala del impacto.</p>
+      <div class="field"><label for="headcount">Número de personas</label><input type="text" id="headcount" value="200" inputmode="numeric" autocomplete="off" placeholder="Ej. 200"></div>
+      <div class="chips" data-target="headcount"><button type="button" class="chip" data-v="50">50</button><button type="button" class="chip" data-v="100">100</button><button type="button" class="chip" data-v="200">200</button><button type="button" class="chip" data-v="400">400</button><button type="button" class="chip" data-v="1000">1000</button></div>
+      <div class="field" style="margin-top:1.5rem">
+        <label for="email1">Correo corporativo</label>
+        <input type="email" id="email1" inputmode="email" autocomplete="email" placeholder="nombre@empresa.com">
+        <p class="hint" id="email1-hint">A este correo llega el informe completo: la cifra, el rango, el desglose por productividad y rotación, y los supuestos que usamos. Es el documento que te sirve para llevarlo a dirección o a tu comité, no una pantalla que se pierde al cerrar la pestaña.</p>
+      </div>
+      <div class="nav"><span></span><button class="btn btn--primary next" id="next1" type="button" disabled>Continuar <span class="arrow">→</span></button></div>
+    </div>
+    <aside class="aside">
+      <span class="aside__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="9" cy="8" r="3.2"/><path d="M2.5 20c0-3.6 2.9-6.5 6.5-6.5s6.5 2.9 6.5 6.5"/><circle cx="17" cy="8.5" r="2.6"/><path d="M15.5 13.6c2.9.4 5 2.9 5 6.4"/></svg></span>
+      <span class="aside__t">Por qué lo preguntamos</span>
+      <h3>El impacto crece con el tamaño del equipo</h3>
+      <p>Usamos este dato para calcular cuántas personas podrían verse afectadas por el estrés financiero dentro de tu organización.</p>
+      <div class="aside__note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l7 3v6c0 5-3.4 8.4-7 10-3.6-1.6-7-5-7-10V5l7-3z"/></svg>No solicitamos nombres ni información individual de tu gente. El correo solo se usa para enviarte tu informe.</div>
+    </aside>
+  </section>
+
+  <!-- 2 Remuneración -->
+  <section class="panel two" data-step="2">
+    <div class="q">
+      <span class="q__n">PREGUNTA 2 DE 5</span>
+      <h2>¿Cuál es la remuneración mensual promedio?</h2>
+      <p class="q__help">No necesitamos remuneraciones individuales. Selecciona el rango que mejor representa a tu organización.</p>
+      <div class="opts opts--2">
+        <label class="opt"><input type="radio" name="salary" value="1200"><span><b>Hasta S/ 1,500</b></span></label>
+        <label class="opt"><input type="radio" name="salary" value="2000"><span><b>S/ 1,501 a S/ 2,500</b></span></label>
+        <label class="opt sel"><input type="radio" name="salary" value="3250" checked><span><b>S/ 2,501 a S/ 4,000</b></span></label>
+        <label class="opt"><input type="radio" name="salary" value="5000"><span><b>S/ 4,001 a S/ 6,000</b></span></label>
+        <label class="opt"><input type="radio" name="salary" value="8000"><span><b>S/ 6,001 a S/ 10,000</b></span></label>
+        <label class="opt"><input type="radio" name="salary" value="1966"><span><b>No lo sé</b><small>Usar promedio formal: S/ 1,966 (INEI, jul-2026)</small></span></label>
+      </div>
+      <div class="nav"><button class="linkbtn back-btn" type="button">← Atrás</button><button class="btn btn--primary next" type="button">Continuar <span class="arrow">→</span></button></div>
+    </div>
+    <aside class="aside">
+      <span class="aside__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2.5" y="6" width="19" height="12" rx="2"/><circle cx="12" cy="12" r="2.6"/><path d="M6 6V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v1"/></svg></span>
+      <span class="aside__t">Cálculo transparente</span>
+      <h3>Convertimos el sueldo en costo laboral por hora</h3>
+      <p>El rango salarial nos permite mostrar un resultado principal y una banda razonable, sin pedirte cifras exactas.</p>
+      <div class="aside__note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg>Si no lo sabes, usamos S/ 1,966 como referencia formal privada a julio de 2026.</div>
+    </aside>
+  </section>
+
+  <!-- 3 Rotación -->
+  <section class="panel two" data-step="3">
+    <div class="q">
+      <span class="q__n">PREGUNTA 3 DE 5</span>
+      <h2>En los últimos 12 meses, ¿cuál fue la rotación de personal?</h2>
+      <p class="q__help">Puedes ingresar el porcentaje que conoce tu organización o elegir un rango aproximado.</p>
+      <div class="opts opts--2">
+        <label class="opt sel"><input type="radio" name="rotmode" value="custom" checked><span><b>Conozco el porcentaje</b><small>Ingresar dato aproximado</small></span></label>
+        <label class="opt"><input type="radio" name="rotmode" value="0.08"><span><b>Menos de 10%</b></span></label>
+        <label class="opt"><input type="radio" name="rotmode" value="0.15"><span><b>Entre 10% y 20%</b></span></label>
+        <label class="opt"><input type="radio" name="rotmode" value="0.25"><span><b>Entre 21% y 30%</b></span></label>
+        <label class="opt"><input type="radio" name="rotmode" value="0.20"><span><b>No lo sé</b><small>Usamos 20% como referencia</small></span></label>
+      </div>
+      <div class="field" style="margin-top:1.25rem"><label for="rot">Rotación anual</label><div class="suffix"><input type="text" id="rot" value="20.7" inputmode="decimal" autocomplete="off" placeholder="Ej. 20.7"><span>%</span></div></div>
+      <div class="nav"><button class="linkbtn back-btn" type="button">← Atrás</button><button class="btn btn--primary next" type="button">Continuar <span class="arrow">→</span></button></div>
+    </div>
+    <aside class="aside">
+      <span class="aside__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 17l5-5 4 4 8-9"/><path d="M15 6h5v5"/></svg></span>
+      <span class="aside__t">Componente de rotación</span>
+      <h3>Estimamos una parte del costo de reemplazo</h3>
+      <p>La rotación se muestra como un escenario de sensibilidad, no como una relación causal comprobada.</p>
+      <div class="aside__note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg>Cuando el dato lo pone la propia organización, la estimación deja de ser nuestra y pasa a ser suya.</div>
+    </aside>
+  </section>
+
+  <!-- 4 Estrés financiero -->
+  <section class="panel two" data-step="4">
+    <div class="q">
+      <span class="q__n">PREGUNTA 4 DE 5</span>
+      <h2>¿Tu organización ha medido el estrés financiero de su gente?</h2>
+      <p class="q__help">Si tienes un dato propio, la estimación será más representativa de tu realidad.</p>
+      <div class="opts">
+        <label class="opt"><input type="radio" name="stressmode" value="custom"><span><b>Sí, tenemos una medición propia</b></span></label>
+        <label class="opt sel"><input type="radio" name="stressmode" value="ref" checked><span><b>No, usar referencia de 59%</b><small>PwC Employee Financial Wellness Survey</small></span></label>
+      </div>
+      <div class="field" id="stress-field" hidden style="margin-top:1.25rem"><label for="stress">Porcentaje medido por tu organización</label><div class="suffix"><input type="text" id="stress" value="59" inputmode="decimal" autocomplete="off"><span>%</span></div></div>
+      <div class="nav"><button class="linkbtn back-btn" type="button">← Atrás</button><button class="btn btn--primary next" type="button">Continuar <span class="arrow">→</span></button></div>
+    </div>
+    <aside class="aside">
+      <span class="aside__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 19V10M10 19V5M16 19v-6M4 19h16"/></svg></span>
+      <span class="aside__t">Referencia del estudio</span>
+      <h3>59% reporta estrés por sus finanzas</h3>
+      <p>PwC encuestó a casi 3,500 trabajadores. Es un benchmark internacional (EE. UU.), no una prevalencia medida en Perú.</p>
+      <div class="aside__note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg>Fuente: PwC Employee Financial Wellness Survey 2023.</div>
+    </aside>
+  </section>
+
+  <!-- 5 Carga RR. HH. -->
+  <section class="panel two" data-step="5">
+    <div class="q">
+      <span class="q__n">PREGUNTA 5 DE 5 · OPCIONAL</span>
+      <h2>¿Quieres incluir la carga operativa de RR. HH.?</h2>
+      <p class="q__help">Puedes afinar el cálculo con el tiempo que tu equipo dedica a adelantos, préstamos, cobranzas o consultas financieras.</p>
+      <div class="opts">
+        <label class="opt sel"><input type="radio" name="hrmode" value="no" checked><span><b>No, continuar con la estimación principal</b></span></label>
+        <label class="opt"><input type="radio" name="hrmode" value="si"><span><b>Sí, quiero afinar el cálculo</b></span></label>
+      </div>
+      <div id="hr-fields" hidden style="margin-top:1.25rem;display:grid;gap:1rem">
+        <div class="field"><label for="hrhours">Horas al mes que RR. HH. dedica a temas financieros</label><input type="text" id="hrhours" value="0" inputmode="numeric" autocomplete="off"></div>
+        <div class="field"><label for="hrsalary">Sueldo mensual del responsable de RR. HH.</label><input type="text" id="hrsalary" value="0" inputmode="numeric" autocomplete="off"></div>
+      </div>
+      <div class="nav"><button class="linkbtn back-btn" type="button">← Atrás</button><button class="btn btn--primary next" type="button">Ver mi estimación <span class="arrow">→</span></button></div>
+    </div>
+    <aside class="aside">
+      <span class="aside__ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.2 2"/></svg></span>
+      <span class="aside__t">Refinamiento opcional</span>
+      <h3>No bloquea tu resultado principal</h3>
+      <p>Si no tienes esta información a la mano, puedes continuar y añadirla después.</p>
+      <div class="aside__note"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 8v5M12 16h.01"/></svg>Este componente suma menos del 2% del total en la mayoría de los casos.</div>
+    </aside>
+  </section>
+
+  <!-- 6 Informe (captura) -->
+  <section class="panel" data-step="6">
+    <div class="gate">
+      <div class="gate__l">
+        <span class="gate__t">Tu estimación está lista</span>
+        <h2 style="font-size:1.6rem">El valor recuperable con Reevalúa estaría entre</h2>
+        <div class="gate__fig"><b id="g-low">S/ 0</b><i>y</i><b id="g-high">S/ 0</b></div>
+        <p>Ingresa tu correo corporativo para ver el costo total estimado y el desglose completo.</p>
+        <div class="gate__chips"><span>Productividad</span><span>Rotación</span><span>Supuestos utilizados</span></div>
+      </div>
+      <div class="gate__r">
+        <div><span class="q__n">RECIBE TU INFORME</span><h2 style="font-size:1.5rem;margin-top:.4rem">Un último dato para enviarte el resultado</h2><p class="q__help" style="margin-bottom:0">El informe completo va al correo que dejaste al inicio (<b id="g-mail-echo"></b>). Con tu celular podemos adelantártelo por WhatsApp y resolver dudas sobre los supuestos.</p></div>
+        <div class="field"><label for="g-name">Nombre</label><input type="text" id="g-name" placeholder="Ej. Diego" autocomplete="name"></div>
+        <div class="field"><label for="g-phone">Celular (WhatsApp)</label><input type="tel" id="g-phone" inputmode="tel" autocomplete="tel" placeholder="+51 999 999 999"></div>
+        <div class="field"><label for="g-org">Empresa u organización</label><input type="text" id="g-org" placeholder="Nombre de la organización" autocomplete="organization"></div>
+        <label class="consent"><input type="checkbox" id="g-consent">He leído y acepto la <a href="https://reevalua.com/privacy" target="_blank" rel="noopener">Política de Privacidad</a>.</label>
+        <label class="consent"><input type="checkbox">Quiero recibir contenidos y novedades de Reevalúa.</label>
+        <div class="nav"><button class="linkbtn back-btn" type="button">← Atrás</button><button class="btn btn--primary" id="g-submit" type="button" disabled>Ver mi resultado <span class="arrow">→</span></button></div>
+        <p style="font-size:.78rem;color:var(--muted)">Tus datos se usarán únicamente según nuestra política de privacidad. <span class="demo">Demo: no envía datos</span></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7 Resultado -->
+  <section class="panel" data-step="7">
+    <div class="res">
+      <div class="res__top">
+        <div>
+          <span class="res__t">Estimación anual</span>
+          <h2 class="res__h">Tu organización podría estar perdiendo</h2>
+          <div class="res__fig" id="r-total">S/ 0 <small>al año</small></div>
+          <p class="res__sub" id="r-sub">por el impacto estimado del estrés financiero de su gente.</p>
+        </div>
+        <div class="res__range">
+          <small>Valor recuperable con Reevalúa</small>
+          <b id="r-range">S/ 0 – S/ 0</b>
+          <p>Escenario conservador (15%) a optimista (40%) sobre el total estimado. Referencia central: 25%.</p>
+        </div>
+      </div>
+      <div class="res__cards">
+        <div class="rc"><span class="rc__l"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 20V10M12 20V4M20 20v-7"/></svg>Productividad</span><div class="rc__v" id="r-prod">S/ 0</div><div class="rc__d">Tiempo potencialmente afectado por preocupaciones financieras.</div></div>
+        <div class="rc"><span class="rc__l"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4v5h5M20 20v-5h-5"/><path d="M4.6 15a8 8 0 0 0 14.5 2.5M19.4 9a8 8 0 0 0-14.5-2.5"/></svg>Rotación</span><div class="rc__v" id="r-rot">S/ 0</div><div class="rc__d">Parte modelada del costo de reemplazo asociada al estrés financiero.</div></div>
+        <div class="rc"><span class="rc__l"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg>RR. HH.</span><div class="rc__v" id="r-hr">No incluido</div><div class="rc__d" id="r-hr-d">Puedes añadirlo y afinar la estimación.</div></div>
+      </div>
+      <div class="method">
+        <span class="q__n">CÓMO CALCULAMOS TU RESULTADO</span>
+        <h3>Datos, referencias y supuestos separados</h3>
+        <div class="mblock" style="margin-top:1.5rem"><small>01 · DATOS DE TU ORGANIZACIÓN</small><h4>Base personalizada</h4><ul id="m-data"></ul></div>
+        <div class="mblock"><small>02 · REFERENCIAS PWC (EE. UU.)</small><h4>Impacto en productividad</h4><ul><li>59% de trabajadores con estrés financiero, según PwC Employee Financial Wellness Survey 2023.</li><li>44% de los trabajadores financieramente estresados se distrae por sus finanzas durante la jornada.</li><li>56% de quienes se distraen dedica 3 horas o más por semana a temas financieros en horario laboral.</li></ul></div>
+        <div class="mblock"><small>03 · SUPUESTOS DEL MODELO</small><h4>Conversión a costo anual</h4><ul><li>Factor laboral 1.37: aproxima gratificaciones, CTS y EsSalud sobre la remuneración bruta.</li><li>160 horas mensuales y 52 semanas al año para convertir el costo laboral a horas.</li><li>Costo de reemplazo: 20% de la remuneración anual por cada salida.</li><li>Atribución de rotación al estrés financiero: 43.8% (60% de estresados × 73% dispuesto a cambiar de empleador, PwC).</li></ul></div>
+        <div class="mblock"><small>04 · RANGO DE RECUPERACIÓN</small><h4>Tres escenarios visibles</h4><ul><li>Conservador: 15% del total estimado es recuperable con acompañamiento.</li><li>Base: 25%, el escenario que usamos como referencia central.</li><li>Optimista: 40%, techo del rango si la adopción del programa es alta.</li></ul></div>
+        <p class="disc">Esta es una estimación con metodología visible para abrir la conversación de impacto, no una medición contable. Los supuestos vienen de estudios públicos citados arriba, no de datos observados en tu organización. El porcentaje recuperable es un escenario de referencia, no una garantía de ahorro.</p>
+        <div class="actions">
+          <a class="btn btn--primary btn--lg" href="https://meetings.hubspot.com/raquel120" target="_blank" rel="noopener">Agendar una reunión para revisar mi resultado <span class="arrow">→</span></a>
+          <button class="btn btn--ghost btn--lg" id="restart" type="button">Recalcular</button>
+          <a class="btn btn--ghost btn--lg" href="index.html">Volver a Reevalúa Empresas</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<script>
+(function () {
+  var NAMES = ["Trabajadores","Remuneración","Rotación","Estrés financiero","Carga RR. HH.","Informe","Resultado"];
+  // Supuestos (hoja "3. Calculadora Reevalúa B2B", calibrados en conservador)
+  var STRESS = 0.59, DISTRACT = 0.44, HOURS3 = 0.56, FACTOR = 1.37, REPLACE = 0.20, ROT_ATTR = 0.6 * 0.73, RECUP = { lo: 0.15, base: 0.25, hi: 0.40 };
+  var step = 1, TOTAL = 7;
+  var $ = function (s) { return document.querySelector(s); }, $$ = function (s) { return Array.prototype.slice.call(document.querySelectorAll(s)); };
+  function money(n) { return "S/ " + Math.round(n).toLocaleString("es-PE"); }
+  // Lee números tal como los escribe la gente: "1.200", "1,200", "20,7", "20.7", "S/ 3 500"
+  function num(v) {
+    v = String(v || "").trim().replace(/[^\d.,]/g, "");
+    if (!v) return 0;
+    var lastDot = v.lastIndexOf("."), lastComma = v.lastIndexOf(",");
+    if (lastDot > -1 && lastComma > -1) { // ambos: el último es el decimal
+      if (lastDot > lastComma) v = v.replace(/,/g, ""); else v = v.replace(/\./g, "").replace(",", ".");
+    } else if (lastComma > -1) { // solo coma: decimal si deja 1-2 dígitos, si no, miles
+      var dec = v.length - lastComma - 1; v = (dec <= 2 && v.indexOf(",") === lastComma) ? v.replace(",", ".") : v.replace(/,/g, "");
+    } else if (lastDot > -1) { // solo punto: miles si deja exactamente 3 dígitos y hay >1 punto o el entero es corto
+      var d = v.length - lastDot - 1; if (d === 3 && (v.split(".").length > 2 || lastDot <= 3)) v = v.replace(/\./g, "");
+    }
+    var n = parseFloat(v); return isFinite(n) ? n : 0;
+  }
+
+  function drawStepper() {
+    var h = "";
+    for (var i = 1; i <= TOTAL; i++) {
+      h += '<div class="dot' + (i < step ? " done" : i === step ? " active" : "") + '"><span class="dot__n">' + (i < step ? "✓" : i) + '</span><span class="dot__l">' + NAMES[i-1] + '</span></div>';
+      if (i < TOTAL) h += '<div class="line' + (i < step ? " done" : "") + '"></div>';
+    }
+    $("#stepper").innerHTML = h; $("#stepnum").textContent = String(step).padStart(2, "0");
+  }
+  function go(n) {
+    step = Math.max(1, Math.min(TOTAL, n));
+    $$(".panel").forEach(function (p) { p.classList.toggle("active", +p.dataset.step === step); });
+    drawStepper();
+    if (step === 6) gate(); if (step === 7) result();
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+  function inputs() {
+    var salaryEl = $('input[name="salary"]:checked'), stressEl = $('input[name="stressmode"]:checked'), hrEl = $('input[name="hrmode"]:checked');
+    var stress = STRESS; if (stressEl && stressEl.value === "custom") stress = Math.min(num($("#stress").value), 100) / 100;
+    var hrH = 0, hrS = 0; if (hrEl && hrEl.value === "si") { hrH = num($("#hrhours").value); hrS = num($("#hrsalary").value); }
+    return { n: Math.round(num($("#headcount").value)), salary: salaryEl ? +salaryEl.value : 3250, rot: Math.min(num($("#rot").value), 100) / 100, stress: stress, hrH: hrH, hrS: hrS };
+  }
+  function compute(x) {
+    var perHour = x.salary * FACTOR / 160;
+    var affected = Math.round(x.n * x.stress * DISTRACT * HOURS3);
+    var prod = affected * 3 * 52 * perHour;
+    var leavers = Math.round(x.n * x.rot);
+    var rotc = leavers * (x.salary * 12 * REPLACE) * ROT_ATTR;
+    var hr = x.hrH * 12 * (x.hrS * FACTOR / 160);
+    return { prod: prod, rot: rotc, hr: hr, total: prod + rotc + hr, hrOn: x.hrH > 0 && x.hrS > 0 };
+  }
+  function gate() { var r = compute(inputs()); $("#g-low").textContent = money(r.total * RECUP.lo); $("#g-high").textContent = money(r.total * RECUP.hi); $("#g-mail-echo").textContent = $("#email1").value.trim(); }
+  function result() {
+    var x = inputs(), r = compute(x);
+    $("#r-total").innerHTML = money(r.total) + " <small>al año</small>";
+    $("#r-range").textContent = money(r.total * RECUP.lo) + " – " + money(r.total * RECUP.hi);
+    $("#r-prod").textContent = money(r.prod); $("#r-rot").textContent = money(r.rot);
+    if (r.hrOn) { $("#r-hr").textContent = money(r.hr); $("#r-hr-d").textContent = "Tiempo de tu equipo dedicado a temas financieros de terceros."; }
+    else { $("#r-hr").textContent = "No incluido"; $("#r-hr-d").textContent = "Puedes añadirlo y afinar la estimación."; }
+    $("#m-data").innerHTML = "<li>" + x.n.toLocaleString("es-PE") + " personas para dimensionar la población expuesta.</li><li>Remuneración mensual de referencia: " + money(x.salary) + ".</li><li>" + (x.rot * 100).toFixed(1) + "% de rotación anual para estimar las salidas y su costo de reemplazo.</li><li>" + (x.stress * 100).toFixed(0) + "% de estrés financiero " + (x.stress === STRESS ? "(referencia PwC)" : "(dato propio de tu organización)") + ".</li>";
+  }
+
+  // interacciones
+  $$(".chip").forEach(function (c) { c.addEventListener("click", function () { $("#" + c.closest(".chips").dataset.target).value = c.dataset.v; }); });
+  $$(".opt input").forEach(function (inp) { inp.addEventListener("change", function () { $$('input[name="' + inp.name + '"]').forEach(function (r) { r.closest(".opt").classList.toggle("sel", r.checked); }); }); });
+  $$('input[name="rotmode"]').forEach(function (r) { r.addEventListener("change", function () { if (r.value !== "custom") $("#rot").value = (r.value * 100).toFixed(1); }); });
+  $("#rot").addEventListener("input", function () { var c = $('input[name="rotmode"][value="custom"]'); if (!c.checked) { c.checked = true; c.dispatchEvent(new Event("change")); } });
+  $$('input[name="stressmode"]').forEach(function (r) { r.addEventListener("change", function () { $("#stress-field").hidden = r.value !== "custom"; }); });
+  $$('input[name="hrmode"]').forEach(function (r) { r.addEventListener("change", function () { $("#hr-fields").hidden = r.value !== "si"; }); });
+  var emailOk = function (v) { return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(String(v || "").trim()); };
+  var phoneOk = function (v) { var d = String(v || "").replace(/\D/g, ""); return d.length >= 9 && d.length <= 13; };
+  function validate1() { var e = $("#email1"); var ok = num($("#headcount").value) >= 1 && emailOk(e.value); $("#next1").disabled = !ok; e.classList.toggle("bad", e.value.length > 5 && !emailOk(e.value)); }
+  ["#headcount", "#email1"].forEach(function (s) { $(s).addEventListener("input", validate1); });
+  $$(".chip").forEach(function (c) { c.addEventListener("click", validate1); });
+  function validate() { var ph = $("#g-phone"); var ok = $("#g-name").value.trim() && phoneOk(ph.value) && $("#g-org").value.trim() && $("#g-consent").checked; $("#g-submit").disabled = !ok; ph.classList.toggle("bad", ph.value.replace(/\D/g, "").length > 0 && !phoneOk(ph.value)); }
+  ["#g-name", "#g-phone", "#g-org", "#g-consent"].forEach(function (s) { $(s).addEventListener("input", validate); $(s).addEventListener("change", validate); });
+  validate1();
+  $("#g-submit").addEventListener("click", function () { go(7); });
+  $$(".next").forEach(function (b) { b.addEventListener("click", function () { go(step + 1); }); });
+  $$(".back-btn").forEach(function (b) { b.addEventListener("click", function () { go(step - 1); }); });
+  $("#restart").addEventListener("click", function () { go(1); });
+  drawStepper();
+})();
+</script>
+</body>
+</html>
