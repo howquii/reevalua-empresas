@@ -3,12 +3,13 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preload" as="image" href="assets/hero-poster.jpg" fetchpriority="high">
 <title>Reevalúa Empresas</title>
 <meta name="description" content="Descubre cuánto le cuesta a tu empresa el estrés financiero de su gente y cómo Reevalúa acompaña a cada persona, sin costo para la empresa.">
 <link rel="icon" href="assets/real/logo-reevalua.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="shared.css">
 <style>
 /* ---------------- HERO ---------------- */
@@ -245,6 +246,24 @@
 .header__cta.is-swapping .header__cta-text { opacity: 0; transform: translateY(-6px); }
 @media (max-width: 899px) { body.has-sticky .header__cta { opacity: 0; transform: translateY(-14px); pointer-events: none; } }
 @media (min-width: 900px) { .sticky { display: none; } }
+/* Móvil: hero más compacto, botones en una línea, menos efectos costosos */
+@media (max-width: 959px) {
+  .hero__inner { padding-block: 5.5rem 4.5rem; }
+  .hero__grid { gap: 2.25rem; }
+  .hero__sub { font-size: 1.05rem; margin-top: 1.25rem; }
+  .hero__cta { margin-top: 1.75rem; }
+  .hero__cta .btn { width: 100%; white-space: nowrap; font-size: clamp(.86rem, 3.8vw, 1.02rem); padding-inline: 1.25rem; }
+  .orbit { width: min(100%, 300px); }
+  .orbit__glow { filter: blur(14px); }
+  .collage figure { animation: none; }
+  .hero__media { will-change: auto; }
+}
+@media (max-width: 599px) {
+  .header .btn--primary { padding: .6rem 1rem; font-size: .85rem; white-space: nowrap; }
+  .header__logo { height: 26px; }
+  .sticky .btn { white-space: nowrap; font-size: clamp(.84rem, 3.7vw, 1rem); padding-inline: 1.25rem; }
+  .plan .btn { width: 100%; }
+}
 </style>
 </head>
 <body>
@@ -267,9 +286,7 @@
 <!-- ================= HERO ================= -->
 <section class="hero" id="top">
   <div class="hero__media" id="hero-media">
-    <video autoplay muted loop playsinline poster="assets/hero-poster.jpg" aria-hidden="true">
-      <source src="assets/hero.mp4" type="video/mp4">
-    </video>
+    <video id="hero-video" muted loop playsinline preload="none" poster="assets/hero-poster.jpg" aria-hidden="true" data-src="assets/hero.mp4"></video>
   </div>
   <div class="hero__shade"></div>
   <div class="container hero__inner">
@@ -312,18 +329,18 @@
   </div>
   <div class="marquee reveal" data-delay="1">
     <div class="marquee__track" id="marquee-track">
-      <span class="marquee__item"><img src="assets/logos/ambipar.png" alt="Ambipar"></span>
-      <span class="marquee__item"><img src="assets/logos/zapler.svg" alt="Zapler"></span>
-      <span class="marquee__item"><img src="assets/logos/bissu.webp" alt="Bissú"></span>
-      <span class="marquee__item"><img src="assets/logos/pulsosalud.png" alt="Pulso Salud"></span>
-      <span class="marquee__item"><img src="assets/logos/cyz.webp" alt="Comercial CYZ"></span>
-      <span class="marquee__item"><img src="assets/logos/skinner.png" alt="Centro Skinner"></span>
-      <span class="marquee__item"><img src="assets/logos/globalsupply.png" alt="Global Supply"></span>
+      <span class="marquee__item"><img width="420" height="133" loading="lazy" decoding="async" src="assets/logos/ambipar.png" alt="Ambipar"></span>
+      <span class="marquee__item"><img loading="lazy" decoding="async" src="assets/logos/zapler.svg" alt="Zapler"></span>
+      <span class="marquee__item"><img width="240" height="100" loading="lazy" decoding="async" src="assets/logos/bissu.webp" alt="Bissú"></span>
+      <span class="marquee__item"><img width="206" height="256" loading="lazy" decoding="async" src="assets/logos/pulsosalud.png" alt="Pulso Salud"></span>
+      <span class="marquee__item"><img width="192" height="192" loading="lazy" decoding="async" src="assets/logos/cyz.webp" alt="Comercial CYZ"></span>
+      <span class="marquee__item"><img width="600" height="273" loading="lazy" decoding="async" src="assets/logos/skinner.png" alt="Centro Skinner"></span>
+      <span class="marquee__item"><img width="600" height="193" loading="lazy" decoding="async" src="assets/logos/globalsupply.png" alt="Global Supply"></span>
       <span class="marquee__item marquee__item--text">ZAFIRO</span>
-      <span class="marquee__item"><img src="assets/logos/swisscorp.svg" alt="Swiss-Corp"></span>
-      <span class="marquee__item"><img src="assets/logos/s4learning.svg" alt="S4Learning"></span>
-      <span class="marquee__item"><img src="assets/logos/doorman.png" alt="Doorman"></span>
-      <span class="marquee__item"><img src="assets/logos/olva.svg" alt="Olva"></span>
+      <span class="marquee__item"><img loading="lazy" decoding="async" src="assets/logos/swisscorp.svg" alt="Swiss-Corp"></span>
+      <span class="marquee__item"><img loading="lazy" decoding="async" src="assets/logos/s4learning.svg" alt="S4Learning"></span>
+      <span class="marquee__item"><img width="400" height="400" loading="lazy" decoding="async" src="assets/logos/doorman.png" alt="Doorman"></span>
+      <span class="marquee__item"><img loading="lazy" decoding="async" src="assets/logos/olva.svg" alt="Olva"></span>
     </div>
   </div>
 </section>
@@ -332,11 +349,11 @@
 <section class="section about" id="quienes-somos">
   <div class="container about__grid">
     <div class="collage reveal">
-      <figure><img src="assets/photos/equipo-planificacion.jpg" alt="Equipo revisando un plan en la oficina" loading="lazy"><span class="stat">Fintech Américas 2025 · Inclusión financiera</span></figure>
-      <figure><img src="assets/photos/mujer-laptop.jpg" alt="Colaboradora trabajando con su laptop" loading="lazy"></figure>
-      <figure><img src="assets/photos/colegas-celebran.jpg" alt="Colegas celebrando un logro" loading="lazy"></figure>
-      <figure><img src="assets/photos/equipo-tablero.jpg" alt="Equipo revisando avances en un tablero" loading="lazy"></figure>
-      <figure><img src="assets/photos/equipo-proyecto.jpg" alt="Equipo conversando sobre un proyecto" loading="lazy"></figure>
+      <figure><img width="1100" height="735" src="assets/photos/equipo-planificacion.jpg" alt="Equipo revisando un plan en la oficina" loading="lazy"><span class="stat">Fintech Américas 2025 · Inclusión financiera</span></figure>
+      <figure><img width="900" height="1350" src="assets/photos/mujer-laptop.jpg" alt="Colaboradora trabajando con su laptop" loading="lazy"></figure>
+      <figure><img width="1100" height="734" src="assets/photos/colegas-celebran.jpg" alt="Colegas celebrando un logro" loading="lazy"></figure>
+      <figure><img width="1100" height="733" src="assets/photos/equipo-tablero.jpg" alt="Equipo revisando avances en un tablero" loading="lazy"></figure>
+      <figure><img width="1100" height="733" src="assets/photos/equipo-proyecto.jpg" alt="Equipo conversando sobre un proyecto" loading="lazy"></figure>
     </div>
     <div class="reveal" data-delay="2">
       <h2>Una fintech peruana que acompaña a la gente hasta que sus finanzas se ordenan</h2>
@@ -490,9 +507,9 @@
       </div>
       <div class="colab-card reveal" data-delay="2">
         <div class="colab-card__visual banks">
-          <img src="assets/real/logo_bcp.webp" alt="BCP"><img src="assets/real/logo_bbva.svg" alt="BBVA"><img src="assets/real/logo_interbank.svg" alt="Interbank">
-          <img src="assets/real/logo_scotiabank.webp" alt="Scotiabank"><img src="assets/real/logo_pichincha.webp" alt="Banco Pichincha"><img src="assets/real/logo-banbif.webp" alt="BanBif">
-          <img src="assets/real/logo_falabella.webp" alt="Banco Falabella"><img src="assets/real/logo_efectiva.webp" alt="Efectiva"><span class="guide">Guía</span>
+          <img width="300" height="78" loading="lazy" decoding="async" src="assets/real/logo_bcp.webp" alt="BCP"><img loading="lazy" decoding="async" src="assets/real/logo_bbva.svg" alt="BBVA"><img loading="lazy" decoding="async" src="assets/real/logo_interbank.svg" alt="Interbank">
+          <img width="300" height="42" loading="lazy" decoding="async" src="assets/real/logo_scotiabank.webp" alt="Scotiabank"><img width="300" height="63" loading="lazy" decoding="async" src="assets/real/logo_pichincha.webp" alt="Banco Pichincha"><img width="295" height="78" loading="lazy" decoding="async" src="assets/real/logo-banbif.webp" alt="BanBif">
+          <img width="300" height="90" loading="lazy" decoding="async" src="assets/real/logo_falabella.webp" alt="Banco Falabella"><img width="396" height="160" loading="lazy" decoding="async" src="assets/real/logo_efectiva.webp" alt="Efectiva"><span class="guide">Guía</span>
         </div>
         <h3>Preparación para negociar deudas con entidades financieras</h3>
         <p>Negociamos con bancos y financieras para reducir lo que deben. Si no hay aliada disponible, los guiamos paso a paso para que negocien por su cuenta.</p>
@@ -508,7 +525,7 @@
       </div>
       <div class="colab-card reveal" data-delay="1">
         <div class="colab-card__visual thumb">
-          <img src="assets/real/thumb-b2b.png" alt="Sesión de educación financiera de Reevalúa" loading="lazy">
+          <img width="1200" height="630" src="assets/real/thumb-b2b.png" alt="Sesión de educación financiera de Reevalúa" loading="lazy">
           <span class="play"><span><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></span></span>
         </div>
         <h3>Educación financiera práctica con contenido de ASBANC</h3>
@@ -547,35 +564,35 @@
     <div class="press__grid">
       <div class="press-card press-card--tall reveal" data-delay="1">
         <p style="font-weight:700;color:var(--ink)">Con el respaldo de</p>
-        <img class="press-card__logo" src="assets/real/logo-preauth-dark.svg" alt="Preauth">
+        <img loading="lazy" decoding="async" class="press-card__logo" src="assets/real/logo-preauth-dark.svg" alt="Preauth">
         <p>Una fintech acelerada por UTEC Ventures, Startup Chile, Startup Perú, 500 Global y Endeavor.</p>
       </div>
       <div class="press-card reveal" data-delay="2">
-        <img class="press-card__logo" src="assets/real/fintech-americas.svg" alt="Fintech Americas">
+        <img loading="lazy" decoding="async" class="press-card__logo" src="assets/real/fintech-americas.svg" alt="Fintech Americas">
         <q>Ganadores en la categoría de inclusión financiera de las Américas en Fintech Américas 2025</q>
         <a class="more" href="https://www.fintechamericas.co/ganadores-premios?filter_tabs=fintech&amp;page=3" target="_blank" rel="noopener">Ver premio →</a>
       </div>
       <div class="press-card reveal" data-delay="3">
-        <img class="press-card__logo" src="assets/real/gestion.png" alt="Gestión">
+        <img width="227" height="50" loading="lazy" decoding="async" class="press-card__logo" src="assets/real/gestion.png" alt="Gestión">
         <q>Peruana Preauth participará en el Visa Fintech Accelerator en Silicon Valley</q>
         <a class="more" href="https://gestion.pe/economia/empresas/fintech-peruana-participara-del-visa-fintech-accelerator-en-silicon-valley-visa-global-startups-empresas-noticia/" target="_blank" rel="noopener">Ver noticia →</a>
       </div>
       <div class="press-video reveal" data-delay="2">
-        <img src="assets/real/emprende-sin-floro.png" alt="Entrevista: 180 millones de latinoamericanos tienen deudas" loading="lazy">
+        <img width="336" height="188" src="assets/real/emprende-sin-floro.png" alt="Entrevista: 180 millones de latinoamericanos tienen deudas" loading="lazy">
         <a href="https://www.youtube.com/watch?v=BSi82qRwl5Q&amp;t=1891s" target="_blank" rel="noopener">Ver entrevista →</a>
       </div>
       <div class="press-social reveal" data-delay="3">
         <h3>Entérate de más noticias desde nuestras redes sociales</h3>
         <div class="press-social__icons">
-          <a href="https://www.facebook.com/reevaluaperu" aria-label="Facebook"><img src="assets/real/facebook.svg" alt=""></a>
-          <a href="https://www.instagram.com/reevalua_" aria-label="Instagram"><img src="assets/real/instagram.svg" alt=""></a>
-          <a href="https://www.youtube.com/@reevalua" aria-label="YouTube"><img src="assets/real/youtube2.svg" alt=""></a>
-          <a href="https://www.tiktok.com/@reevalua" aria-label="TikTok"><img src="assets/real/tiktok.svg" alt=""></a>
-          <a href="https://www.linkedin.com/showcase/reevalua/" aria-label="LinkedIn"><img src="assets/real/linkedin.svg" alt=""></a>
+          <a href="https://www.facebook.com/reevaluaperu" aria-label="Facebook"><img loading="lazy" decoding="async" src="assets/real/facebook.svg" alt=""></a>
+          <a href="https://www.instagram.com/reevalua_" aria-label="Instagram"><img loading="lazy" decoding="async" src="assets/real/instagram.svg" alt=""></a>
+          <a href="https://www.youtube.com/@reevalua" aria-label="YouTube"><img loading="lazy" decoding="async" src="assets/real/youtube2.svg" alt=""></a>
+          <a href="https://www.tiktok.com/@reevalua" aria-label="TikTok"><img loading="lazy" decoding="async" src="assets/real/tiktok.svg" alt=""></a>
+          <a href="https://www.linkedin.com/showcase/reevalua/" aria-label="LinkedIn"><img loading="lazy" decoding="async" src="assets/real/linkedin.svg" alt=""></a>
         </div>
       </div>
       <div class="press-video reveal" data-delay="2">
-        <img src="assets/real/inversion-simple.png" alt="Entrevista: ¿qué pasa si te endeudas con el banco?" loading="lazy">
+        <img width="336" height="188" src="assets/real/inversion-simple.png" alt="Entrevista: ¿qué pasa si te endeudas con el banco?" loading="lazy">
         <a href="https://www.youtube.com/watch?v=RiSVC6H8P3Y" target="_blank" rel="noopener">Ver entrevista →</a>
       </div>
     </div>
@@ -600,7 +617,7 @@
 <section class="section community" id="comunidad">
   <div class="container community__grid">
     <div class="community__photo reveal">
-      <img src="assets/photos/networking-recepcion.jpg" alt="Recepción de networking con líderes de RR. HH." loading="lazy">
+      <img width="1100" height="746" src="assets/photos/networking-recepcion.jpg" alt="Recepción de networking con líderes de RR. HH." loading="lazy">
     </div>
     <div class="reveal" data-delay="2">
       <h2>La conversación de RR. HH. en Perú pasa por esta mesa. Súmate.</h2>
@@ -701,11 +718,11 @@
           <a href="https://reevalua.com/reevalua-plus">Reevalúa+</a>
         </div>
         <div class="footer__social">
-          <a href="https://www.facebook.com/reevaluaperu" aria-label="Facebook"><img src="assets/real/facebook.svg" alt=""></a>
-          <a href="https://www.instagram.com/reevalua_" aria-label="Instagram"><img src="assets/real/instagram.svg" alt=""></a>
-          <a href="https://www.youtube.com/@reevalua" aria-label="YouTube"><img src="assets/real/youtube2.svg" alt=""></a>
-          <a href="https://www.tiktok.com/@reevalua" aria-label="TikTok"><img src="assets/real/tiktok.svg" alt=""></a>
-          <a href="https://www.linkedin.com/showcase/reevalua/" aria-label="LinkedIn"><img src="assets/real/linkedin.svg" alt=""></a>
+          <a href="https://www.facebook.com/reevaluaperu" aria-label="Facebook"><img loading="lazy" decoding="async" src="assets/real/facebook.svg" alt=""></a>
+          <a href="https://www.instagram.com/reevalua_" aria-label="Instagram"><img loading="lazy" decoding="async" src="assets/real/instagram.svg" alt=""></a>
+          <a href="https://www.youtube.com/@reevalua" aria-label="YouTube"><img loading="lazy" decoding="async" src="assets/real/youtube2.svg" alt=""></a>
+          <a href="https://www.tiktok.com/@reevalua" aria-label="TikTok"><img loading="lazy" decoding="async" src="assets/real/tiktok.svg" alt=""></a>
+          <a href="https://www.linkedin.com/showcase/reevalua/" aria-label="LinkedIn"><img loading="lazy" decoding="async" src="assets/real/linkedin.svg" alt=""></a>
         </div>
       </div>
       <div class="footer__col">
@@ -774,7 +791,14 @@
 
   // Parallax del video
   var media = document.getElementById("hero-media");
-  if (!reduced) {
+  var desktop = window.matchMedia("(min-width: 900px)").matches;
+  var saveData = navigator.connection && navigator.connection.saveData;
+  var vid = document.getElementById("hero-video");
+  if (vid && desktop && !reduced && !saveData) {
+    vid.src = vid.getAttribute("data-src"); vid.autoplay = true; vid.load();
+    var pl = vid.play(); if (pl && pl.catch) pl.catch(function () {});
+  }
+  if (!reduced && desktop) {
     window.addEventListener("scroll", function () {
       var y = window.scrollY; if (y < window.innerHeight * 1.2) media.style.transform = "translateY(" + (y * 0.25) + "px)";
     }, { passive: true });
@@ -785,6 +809,11 @@
   var headerCta = document.getElementById("header-cta"), headerCtaText = headerCta.querySelector(".header__cta-text");
   var pastHero = false, pastPlan = false, currentLabel = "";
   var LABELS = { calc: "Calcular el costo para mi empresa", plan: "Activa tu convenio gratuito" };
+  var SHORT = { calc: "Calcular el costo", plan: "Activar convenio" };
+  var mqSmall = window.matchMedia("(max-width: 599px)");
+  function headerLabel(label) { return mqSmall.matches ? (label === LABELS.plan ? SHORT.plan : SHORT.calc) : label; }
+  headerCtaText.textContent = headerLabel(LABELS.calc);
+  if (mqSmall.addEventListener) mqSmall.addEventListener("change", function () { if (currentLabel) headerCtaText.textContent = headerLabel(currentLabel); });
   function swapLabel(label) {
     if (label === currentLabel) return; currentLabel = label;
     if (sticky.classList.contains("is-visible") && !reduced) {
@@ -792,7 +821,7 @@
       setTimeout(function () { stickyBtn.textContent = label + " →"; sticky.classList.remove("is-swapping"); }, 280);
     } else { stickyBtn.textContent = label + " →"; }
     headerCta.classList.add("is-swapping");
-    setTimeout(function () { headerCtaText.textContent = label; headerCta.classList.remove("is-swapping"); }, 200);
+    setTimeout(function () { headerCtaText.textContent = headerLabel(label); headerCta.classList.remove("is-swapping"); }, 200);
   }
   function upd() {
     sticky.classList.toggle("is-visible", pastHero);

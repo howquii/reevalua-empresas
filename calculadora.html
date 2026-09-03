@@ -8,7 +8,7 @@
 <link rel="icon" href="assets/real/logo-reevalua.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="shared.css">
 <style>
 body { background: var(--page); }
@@ -113,6 +113,16 @@ body { background: var(--page); }
 .mblock ul { padding-left: 1.1rem; color: var(--ink-2); font-size: .92rem; display: grid; gap: .4rem; }
 .disc { background: #FEF3C7; color: #78350F; border-radius: var(--r-md); padding: 1.25rem 1.5rem; margin-top: 2rem; font-size: .88rem; }
 .actions { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 2rem; }
+/* Móvil: stepper compacto sin scroll horizontal */
+@media (max-width: 639px) {
+  .stepper__inner { overflow: visible; padding-block: .9rem; }
+  .dot { width: auto; flex: 0 0 auto; }
+  .dot__l { display: none; }
+  .dot__n { width: 26px; height: 26px; font-size: .75rem; }
+  .line { margin-top: 12px; min-width: 6px; }
+  .back span { display: none; }
+  .actions .btn { flex: 1 1 auto; }
+}
 </style>
 </head>
 <body>
@@ -120,7 +130,7 @@ body { background: var(--page); }
 <div class="topbar">
   <div class="container topbar__inner">
     <a href="index.html" aria-label="Reevalúa"><img src="assets/real/logo-reevalua-dark.svg" alt="Reevalúa"></a>
-    <a class="back" href="index.html">← Volver a Reevalúa Empresas</a>
+    <a class="back" href="index.html">← Volver<span>&nbsp;a Reevalúa Empresas</span></a>
     <span class="step-count"><span id="stepnum">01</span><small> / 07</small></span>
   </div>
 </div>
